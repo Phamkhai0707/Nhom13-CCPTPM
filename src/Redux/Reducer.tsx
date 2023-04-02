@@ -17,19 +17,7 @@ const rootReducer = (state = initState, action) => {
     case 'inforList/addInfor':
       return {
         ...state,
-        inforList: [
-          ...state.inforList,
-          {
-            id: 1,
-            fullName: 'Kien Design',
-            batch: '',
-            company: 'Base.vn',
-            phone: '0977272160',
-            email: 'basekiennt@gmail.com',
-            address: 'Số 08, Hoàng Công Chất, Bắc Từ Liêm, Hà Nội',
-            DoB: '26-10-1993',
-          },
-        ],
+        inforList: [...state.inforList, action.payload],
       };
     default:
       return state;

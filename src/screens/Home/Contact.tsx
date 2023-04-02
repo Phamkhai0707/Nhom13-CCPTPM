@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {AlphabetList} from 'react-native-section-alphabet-list';
+import {useSelector} from 'react-redux';
+import {inforListSelector} from '../../Redux/Selectors';
 
 export default function Contact() {
   const DATA = [
@@ -106,6 +108,7 @@ export default function Contact() {
   const [number, setNumber] = useState('');
   const [changeView, setChangeView] = useState('activeModul');
   const [filterStatus, setFilterStatus] = useState(false);
+  const inforList = useSelector(inforListSelector);
 
   const handleText = () => {
     setNumber('');
@@ -121,7 +124,9 @@ export default function Contact() {
         style={styles.box}
         onPress={() => navigation.navigate('Information')}>
         <Image style={styles.imageInfor} source={item.image} />
-        <Text style={styles.infor1}>{item.value}</Text>
+        {inforList.map(infor => (
+          <Text style={styles.infor1}>{infor.name}</Text>
+        ))}
         <Text style={styles.infor2}>{item.bank}</Text>
       </TouchableOpacity>
     );

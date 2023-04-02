@@ -9,13 +9,43 @@ import {
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-
+import {useDispatch} from 'react-redux';
+import {addNewContact} from '../../Redux/Actions';
 export default function NewContact() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [add1, setAdd1] = useState();
   const [add2, setAdd2] = useState();
   const [add3, setAdd3] = useState();
   const [add4, setAdd4] = useState();
+  const [name, setName] = useState();
+  const [batch, setBatch] = useState();
+  const [company, setCompany] = useState();
+  const [phone, setPhone] = useState();
+  const [email, setEmail] = useState();
+  const [address, setAddress] = useState();
+  const [DoB, setDoB] = useState();
+  const handlerName = name => {
+    setName(name);
+  };
+  const handlerBatch = batch => {
+    setBatch(batch);
+  };
+  const handlerCompany = company => {
+    setCompany(company);
+  };
+  const handlerPhone = phone => {
+    setPhone(phone);
+  };
+  const handlerEmail = email => {
+    setEmail(email);
+  };
+  const handlerAddress = address => {
+    setAddress(address);
+  };
+  const handlerDoB = DoB => {
+    setDoB(DoB);
+  };
   const handleAdd1 = add => {
     setAdd1(add);
   };
@@ -28,6 +58,20 @@ export default function NewContact() {
   const handleAdd4 = add => {
     setAdd4(add);
   };
+  const handlerSaveNewContact = () => {
+    dispatch(
+      addNewContact({
+        id: 1,
+        fullName: name,
+        batch: batch,
+        company: company,
+        phone: phone,
+        email: email,
+        address: address,
+        DoB: DoB,
+      }),
+    );
+  };
   return (
     <View style={styles.background}>
       <View style={styles.header}>
@@ -36,7 +80,9 @@ export default function NewContact() {
           onPress={() => navigation.goBack()}>
           <Text style={styles.cancel}> Hủy </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.saveButton}>
+        <TouchableOpacity
+          style={styles.saveButton}
+          onPress={handlerSaveNewContact}>
           <Text style={styles.save}> Save </Text>
         </TouchableOpacity>
       </View>
@@ -48,9 +94,24 @@ export default function NewContact() {
           </TouchableOpacity>
         </View>
         <View style={styles.warpInfor1}>
-          <TextInput style={styles.infor1} placeholder="Họ" />
-          <TextInput style={styles.infor1} placeholder="Vị trí" />
-          <TextInput style={styles.infor1} placeholder="Công ty" />
+          <TextInput
+            style={styles.infor1}
+            value={name}
+            onChangeText={value => handlerName(value)}
+            placeholder="Họ"
+          />
+          <TextInput
+            style={styles.infor1}
+            value={batch}
+            onChangeText={value => handlerBatch(value)}
+            placeholder="Vị trí"
+          />
+          <TextInput
+            style={styles.infor1}
+            value={company}
+            onChangeText={value => handlerCompany(value)}
+            placeholder="Công ty"
+          />
         </View>
 
         <View style={styles.warpInfor2}>
@@ -62,7 +123,11 @@ export default function NewContact() {
                 }}>
                 <Image source={require('../../assets/icons/redMinus.png')} />
               </TouchableOpacity>
-              <TextInput style={styles.textInput} />
+              <TextInput
+                style={styles.textInput}
+                value={phone}
+                onChangeText={value => handlerPhone(value)}
+              />
             </View>
           ) : (
             ''
@@ -87,7 +152,11 @@ export default function NewContact() {
                 }}>
                 <Image source={require('../../assets/icons/redMinus.png')} />
               </TouchableOpacity>
-              <TextInput style={styles.textInput} />
+              <TextInput
+                style={styles.textInput}
+                value={email}
+                onChangeText={value => handlerEmail(value)}
+              />
             </View>
           ) : (
             ''
@@ -112,7 +181,11 @@ export default function NewContact() {
                 }}>
                 <Image source={require('../../assets/icons/redMinus.png')} />
               </TouchableOpacity>
-              <TextInput style={styles.textInput} />
+              <TextInput
+                style={styles.textInput}
+                value={address}
+                onChangeText={value => handlerAddress(value)}
+              />
             </View>
           ) : (
             ''
@@ -137,7 +210,11 @@ export default function NewContact() {
                 }}>
                 <Image source={require('../../assets/icons/redMinus.png')} />
               </TouchableOpacity>
-              <TextInput style={styles.textInput} />
+              <TextInput
+                style={styles.textInput}
+                value={DoB}
+                onChangeText={value => handlerDoB(value)}
+              />
             </View>
           ) : (
             ''

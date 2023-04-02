@@ -26,7 +26,8 @@
     "react-native-section-alphabet-list": "^3.0.0",
     "react-native-svg": "12.1.1",
     "react-redux": "^8.0.5",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
