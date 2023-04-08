@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 export default function Recent() {
   const DATA = [
     {
-      id: '001',
+      id: Date.now,
       name: 'Nguyễn Tiến Nam',
       sdt: '0977272123',
       missing: false,
@@ -21,7 +21,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '002',
+      id: Date.now,
       name: 'Vũ Mạnh Linh',
       sdt: '0977272123',
       missing: false,
@@ -30,7 +30,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '003',
+      id: Date.now,
       name: 'Trần Thái Hà',
       sdt: '0977272123',
       missing: false,
@@ -39,7 +39,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '004',
+      id: Date.now,
       name: 'Lê Ngọc Linh',
       missing: true,
       sdt: '0977272123',
@@ -47,7 +47,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '005',
+      id: Date.now,
       name: 'Kiều Vân Anh',
       missing: true,
       sdt: '0977272123',
@@ -55,7 +55,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '006',
+      id: Date.now,
       name: 'Thái Thùy Trang',
       sdt: '0977272123',
       missing: false,
@@ -64,7 +64,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '007',
+      id: Date.now,
       name: 'Thái Lê Kiều',
       sdt: '0977272123',
       missing: false,
@@ -73,7 +73,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '008',
+      id: Date.now,
       name: 'Bảo Ngọc',
       sdt: '0977272123',
       missing: false,
@@ -82,7 +82,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '009',
+      id: Date.now,
       name: 'Dương Lê',
       sdt: '0977272123',
       missing: false,
@@ -91,7 +91,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '008',
+      id: Date.now,
       name: 'Bảo Ngọc',
       sdt: '0977272123',
       missing: false,
@@ -100,7 +100,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '009',
+      id: Date.now,
       name: 'Bảo Ngọc',
       sdt: '0977272123',
       missing: false,
@@ -109,7 +109,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '010',
+      id: Date.now,
       name: 'Bảo Ngọc',
       sdt: '0977272123',
       missing: false,
@@ -118,7 +118,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '011',
+      id: Date.now,
       name: 'Bảo Ngọc',
       sdt: '0977272123',
       missing: false,
@@ -127,7 +127,7 @@ export default function Recent() {
       iconInfor: require('../../assets/icons/iconInfor.png'),
     },
     {
-      id: '012',
+      id: Date.now,
       name: 'Bảo Ngọc',
       sdt: '0977272123',
       missing: false,

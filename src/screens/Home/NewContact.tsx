@@ -69,6 +69,8 @@ export default function NewContact() {
         email: email,
         address: address,
         DoB: DoB,
+        image: require('../../assets/images/per1.png'),
+        imageAvata: require('../../assets/images/avatar01.png'),
       }),
     );
   };

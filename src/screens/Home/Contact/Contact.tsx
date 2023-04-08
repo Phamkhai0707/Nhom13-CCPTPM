@@ -10,124 +10,38 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {AlphabetList} from 'react-native-section-alphabet-list';
-import {useSelector} from 'react-redux';
-import {inforListSelector} from '../../Redux/Selectors';
+import {useDispatch, useSelector} from 'react-redux';
+import {inforListRemainingSelector} from '../../Redux/Selectors';
+import {searchContactChange} from '../../Redux/Actions';
 
 export default function Contact() {
-  const DATA = [
-    {
-      value: 'Dương Lê',
-      key: '001',
-      phone: '0977272123',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar01.png'),
-    },
-    {
-      value: 'Thùy Trang',
-      key: '002',
-      phone: '0977272123',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar02.png'),
-    },
-    {
-      key: '003',
-      phone: '0977272123',
-      value: 'Hồng Đăng',
-      bank: 'OTP',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar03.png'),
-    },
-    {
-      key: '004',
-      phone: '0977272123',
-      value: 'Nguyễn Tiến Nam',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar04.png'),
-    },
-    {
-      key: '005',
-      phone: '0977272123',
-      value: 'Bảo Ngọc',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar05.png'),
-    },
-    {
-      key: '006',
-      phone: '0977272123',
-      value: 'Thái Thùy Trang',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar06.png'),
-    },
-    {
-      key: '007',
-      phone: '0977272123',
-      value: 'Lê Ngọc Linh',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar07.png'),
-    },
-    {
-      key: '008',
-      phone: '0977272123',
-      value: 'Trần Thái Hà',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar01.png'),
-    },
-    {
-      key: '009',
-      phone: '0977272123',
-      value: 'Nguyễn Tiến Nam',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar02.png'),
-    },
-    {
-      value: 'Hồng Đăng',
-      key: '010',
-      phone: '0977272123',
-      bank: 'OTP',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar03.png'),
-    },
-    {
-      value: 'Bảo Ngọc',
-      key: '011',
-      phone: '0977272123',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar04.png'),
-    },
-  ];
   const navigation = useNavigation();
-  const [number, setNumber] = useState('');
+  const [searchContact, setSearchContact] = useState('');
   const [changeView, setChangeView] = useState('activeModul');
   const [filterStatus, setFilterStatus] = useState(false);
-  const inforList = useSelector(inforListSelector);
-
-  const handleText = () => {
-    setNumber('');
+  const inforList = useSelector(inforListRemainingSelector);
+  const dispatch = useDispatch();
+  const changeList = [...inforList].sort((a, b) =>
+    a.fullName.localeCompare(b.fullName),
+  );
+  const handleSearchContactChange = value => {
+    setSearchContact(value);
+    dispatch(searchContactChange(value));
   };
-
   const handleView = (text: string) => {
     setChangeView(text);
   };
-
   const Item = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.box}
         onPress={() => navigation.navigate('Information')}>
-        <Image style={styles.imageInfor} source={item.image} />
-        {inforList.map(infor => (
-          <Text style={styles.infor1}>{infor.name}</Text>
-        ))}
-        <Text style={styles.infor2}>{item.bank}</Text>
+        <Image
+          style={styles.imageInfor}
+          source={require('../../assets/images/per1.png')}
+        />
+        <Text style={styles.infor1}>{item.fullName}</Text>
+        <Text style={styles.infor2}>{item.company}</Text>
       </TouchableOpacity>
     );
   };
@@ -135,15 +49,6 @@ export default function Contact() {
     return <Item item={item.item} />;
   };
 
-  // const renderItem = item => {
-  //   console.log('check item', item.item.image);
-  //   return (
-  //     <View>
-  //       <Image source={item.item.image} />
-  //       <Text>abc</Text>
-  //     </View>
-  //   );
-  // };
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <View style={styles.header}>
@@ -179,44 +84,53 @@ export default function Contact() {
         </View>
       </View>
       <View style={{flexDirection: 'row'}}>
-        <View style={[styles.search, {flexDirection: 'row'}]}>
+        <View
+          style={[
+            styles.search,
+            {width: changeView === 'activeList' ? '93%' : '80%'},
+          ]}>
           <Image
             style={styles.iconSearch}
             source={require('../../assets/icons/icon_search.png')}
           />
           <TextInput
-            onChangeText={handleText}
-            value={number}
+            style={{width: '100%'}}
+            onChangeText={handleSearchContactChange}
+            value={searchContact}
             placeholder="Search"
           />
         </View>
-        {filterStatus === false ? (
-          <TouchableOpacity
-            style={styles.filter}
-            onPress={() => setFilterStatus(!filterStatus)}>
-            <Image
-              style={styles.iconfilter}
-              source={require('../../assets/icons/icon_filter1.png')}
-            />
-          </TouchableOpacity>
+        {changeView === 'activeModul' ? (
+          filterStatus === false ? (
+            <TouchableOpacity
+              style={styles.filter}
+              onPress={() => setFilterStatus(true)}>
+              <Image
+                style={styles.iconfilter}
+                source={require('../../assets/icons/icon_filter1.png')}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.filter}
+              onPress={() => setFilterStatus(false)}>
+              <Image
+                style={styles.iconfilterActive}
+                source={require('../../assets/icons/icon_filter1.png')}
+              />
+            </TouchableOpacity>
+          )
         ) : (
-          <TouchableOpacity
-            style={styles.filter}
-            onPress={() => setFilterStatus(!filterStatus)}>
-            <Image
-              style={styles.iconfilterActive}
-              source={require('../../assets/icons/icon_filter1.png')}
-            />
-          </TouchableOpacity>
+          ''
         )}
       </View>
 
       {changeView === 'activeModul' ? (
         <FlatList
           style={styles.flatList}
-          data={DATA}
+          data={filterStatus ? changeList : inforList}
           renderItem={renderItem}
-          keyExtractor={item => item.key}
+          keyExtractor={item => item.id}
           numColumns={2}
         />
       ) : (
@@ -225,7 +139,7 @@ export default function Contact() {
       {changeView === 'activeList' ? (
         <AlphabetList
           style={styles.sectionList}
-          data={DATA}
+          data={inforList}
           indexLetterStyle={{
             color: '#1e62be',
             fontSize: 15,
@@ -240,7 +154,7 @@ export default function Contact() {
                 <View style={styles.inforPerson}>
                   <Text style={styles.name}> {item.value} </Text>
                   <Text> {item.phone} </Text>
-                  <Text> {item.bank} </Text>
+                  <Text> {item.company} </Text>
                 </View>
               </TouchableOpacity>
             );
@@ -293,10 +207,10 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   search: {
+    flexDirection: 'row',
     backgroundColor: '#F2F2F2',
     marginLeft: 12,
     borderRadius: 4,
-    width: '80%',
     height: 45,
   },
   filter: {
