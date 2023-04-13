@@ -19,6 +19,7 @@
     "react": "18.2.0",
     "react-native": "0.71.5",
     "react-native-bouncy-checkbox": "^3.0.7",
+    "react-native-flipper": "^0.188.0",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-reanimated": "^3.0.2",
     "react-native-safe-area-context": "3.3.2",
@@ -27,6 +28,8 @@
     "react-native-svg": "12.1.1",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
+    "redux-flipper": "^2.0.2",
+    "reselect": "^4.1.7",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

@@ -6,137 +6,15 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  Linking,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {recentListSelector} from '../../../Redux/Selectors';
 
 export default function Recent() {
-  const DATA = [
-    {
-      id: Date.now,
-      name: 'Nguyễn Tiến Nam',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Hôm nay',
-      icon: require('../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Vũ Mạnh Linh',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Hôm nay',
-      icon: require('../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Trần Thái Hà',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Hôm nay',
-      icon: require('../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Lê Ngọc Linh',
-      missing: true,
-      sdt: '0977272123',
-      time: 'Thứ Tư',
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Kiều Vân Anh',
-      missing: true,
-      sdt: '0977272123',
-      time: 'Thứ Tư',
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Thái Thùy Trang',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Thứ Ba',
-      icon: require('../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Thái Lê Kiều',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Thứ Hai',
-      icon: require('../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Bảo Ngọc',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Thứ Hai',
-      icon: require('../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Dương Lê',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Thứ Bảy',
-      icon: require('../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Bảo Ngọc',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Thứ Hai',
-      icon: require('../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Bảo Ngọc',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Thứ Hai',
-      icon: require('../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Bảo Ngọc',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Thứ Hai',
-      icon: require('../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Bảo Ngọc',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Thứ Hai',
-      icon: require('../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-    {
-      id: Date.now,
-      name: 'Bảo Ngọc',
-      sdt: '0977272123',
-      missing: false,
-      time: 'Thứ Hai',
-      icon: require('../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../assets/icons/iconInfor.png'),
-    },
-  ];
   const navigation = useNavigation();
+  const recentList = useSelector(recentListSelector);
   const Item = ({item}) => {
     return (
       <View
@@ -146,7 +24,7 @@ export default function Recent() {
         }}>
         <TouchableOpacity
           style={styles.infor}
-          onPress={() => navigation.navigate('Information')}>
+          onPress={() => Linking.openURL(`tel:${item.sdt}`)}>
           <Image style={styles.icon} source={item.icon} />
           <View style={[styles.inforChil, {marginLeft: item.missing ? 20 : 0}]}>
             <View style={styles.textInfor}>
@@ -161,7 +39,11 @@ export default function Recent() {
             </View>
             <View style={{flexDirection: 'row', marginLeft: 'auto'}}>
               <Text style={styles.text3}>{item.time}</Text>
-              <Image style={styles.iconInfor} source={item.iconInfor} />
+              <TouchableOpacity
+                style={styles.iconInfor}
+                onPress={() => navigation.navigate('Information')}>
+                <Image source={item.iconInfor} />
+              </TouchableOpacity>
             </View>
           </View>
         </TouchableOpacity>
@@ -174,7 +56,7 @@ export default function Recent() {
   return (
     <FlatList
       style={{flex: 1, backgroundColor: 'white'}}
-      data={DATA}
+      data={recentList}
       renderItem={renderItem}
       keyExtractor={item => item.id}
     />

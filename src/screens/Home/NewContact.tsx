@@ -61,7 +61,7 @@ export default function NewContact() {
   const handlerSaveNewContact = () => {
     dispatch(
       addNewContact({
-        id: 1,
+        id: Date.now(),
         fullName: name,
         batch: batch,
         company: company,
@@ -90,7 +90,9 @@ export default function NewContact() {
       </View>
       <ScrollView style={styles.scroll}>
         <View style={styles.avata}>
-          <Image source={require('../../assets/images/defaultAvata.png')} />
+          <TouchableOpacity>
+            <Image source={require('../../assets/images/defaultAvata.png')} />
+          </TouchableOpacity>
           <TouchableOpacity style={styles.changeAvata}>
             <Image source={require('../../assets/icons/changeAvatar.png')} />
           </TouchableOpacity>

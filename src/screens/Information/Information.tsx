@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
+  Linking,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -28,78 +31,90 @@ export default function Information() {
   };
 
   return (
-    <View>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}>
-          <Image source={require('../../assets/icons/arrow.png')} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => navigation.navigate('EditInformation')}>
-          <Text style={styles.textEdit}> Edit </Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.boxAvatar}>
-        <Image
-          style={styles.avatar}
-          source={require('../../assets/images/avatar.png')}
-        />
-        <TouchableOpacity style={styles.changeAvatar}>
-          <Image source={require('../../assets/icons/changeAvatar.png')} />
-        </TouchableOpacity>
-        <Text style={styles.text1}>Nguyễn Tiến Nam</Text>
-        <Text style={styles.text2}>UI/UX Design</Text>
-        <View style={styles.feature}>
-          <View style={styles.aloneFeature}>
-            <TouchableOpacity>
-              <Image source={require('../../assets/icons/iconFeature1.png')} />
-            </TouchableOpacity>
-            <Text style={styles.text3}>Call</Text>
-          </View>
-          <View style={styles.aloneFeature}>
-            <TouchableOpacity>
-              <Image source={require('../../assets/icons/iconFeature2.png')} />
-            </TouchableOpacity>
-            <Text style={styles.text3}>Messenger</Text>
-          </View>
-          <View style={styles.aloneFeature}>
-            <TouchableOpacity>
-              <Image source={require('../../assets/icons/iconFeature3.png')} />
-            </TouchableOpacity>
-            <Text style={styles.text3}>Website</Text>
-          </View>
-          <View style={styles.aloneFeature}>
-            <TouchableOpacity>
-              <Image source={require('../../assets/icons/iconFeature4.png')} />
-            </TouchableOpacity>
-            <Text style={styles.text3}>Sent Email</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View>
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}>
+            <Image source={require('../../assets/icons/arrow.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.editButton}
+            onPress={() => navigation.navigate('EditInformation')}>
+            <Text style={styles.textEdit}> Edit </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.boxAvatar}>
+          <TouchableOpacity>
+            <Image
+              style={styles.avatar}
+              source={require('../../assets/images/avatar.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.changeAvatar}>
+            <Image source={require('../../assets/icons/changeAvatar.png')} />
+          </TouchableOpacity>
+          <Text style={styles.text1}>Nguyễn Tiến Nam</Text>
+          <Text style={styles.text2}>UI/UX Design</Text>
+          <View style={styles.feature}>
+            <View style={styles.aloneFeature}>
+              <TouchableOpacity onPress={() => Linking.openURL('tel:')}>
+                <Image
+                  source={require('../../assets/icons/iconFeature1.png')}
+                />
+              </TouchableOpacity>
+              <Text style={styles.text3}>Call</Text>
+            </View>
+            <View style={styles.aloneFeature}>
+              <TouchableOpacity>
+                <Image
+                  source={require('../../assets/icons/iconFeature2.png')}
+                />
+              </TouchableOpacity>
+              <Text style={styles.text3}>Messenger</Text>
+            </View>
+            <View style={styles.aloneFeature}>
+              <TouchableOpacity>
+                <Image
+                  source={require('../../assets/icons/iconFeature3.png')}
+                />
+              </TouchableOpacity>
+              <Text style={styles.text3}>Website</Text>
+            </View>
+            <View style={styles.aloneFeature}>
+              <TouchableOpacity>
+                <Image
+                  source={require('../../assets/icons/iconFeature4.png')}
+                />
+              </TouchableOpacity>
+              <Text style={styles.text3}>Sent Email</Text>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.infor}>
-        <View style={styles.box1}>
-          <Text style={styles.text4}>Điện thoại</Text>
-          <Text style={styles.text5}>0977272160</Text>
+        <View style={styles.infor}>
+          <View style={styles.box1}>
+            <Text style={styles.text4}>Điện thoại</Text>
+            <Text style={styles.text5}>0977272160</Text>
+          </View>
+          <View style={styles.box2}>
+            <TextInput
+              style={styles.note}
+              onChangeText={setNumber}
+              value={num}
+              placeholder={'Ghi chú'}
+              placeholderTextColor={'#000'}
+            />
+          </View>
+          <TouchableOpacity style={styles.box3}>
+            <Text style={styles.text4}>Gửi tin nhắn</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.box3} onPress={() => confirm()}>
+            <Text style={styles.textDel}>Xóa người gọi</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.box2}>
-          <TextInput
-            style={styles.note}
-            onChangeText={setNumber}
-            value={num}
-            placeholder={'Ghi chú'}
-            placeholderTextColor={'#000'}
-          />
-        </View>
-        <TouchableOpacity style={styles.box3}>
-          <Text style={styles.text4}>Gửi tin nhắn</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.box3} onPress={() => confirm()}>
-          <Text style={styles.textDel}>Xóa người gọi</Text>
-        </TouchableOpacity>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({

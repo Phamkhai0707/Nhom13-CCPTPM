@@ -8,6 +8,7 @@ export default function Scan() {
     upCount(count);
     // console.log('check', count);
   };
+  console.log('check', Date.now());
   return (
     <View>
       <Text

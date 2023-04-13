@@ -6,19 +6,21 @@
  */
 
 import * as React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {
-  createDrawerNavigator,
-  // DrawerContentScrollView,
-  // DrawerItemList,
-  // DrawerItem,
-} from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import Login from './src/screens/Login/Login';
-import Contact from './src/screens/Home/Contact';
-import Recent from './src/screens/Home/Recent';
+import Contact from './src/screens/Home/Contact/Contact';
+import Recent from './src/screens/Home/Recent/Recent';
 import Scan from './src/screens/Home/Scan';
 import NewContact from './src/screens/Home/NewContact';
 import Information from './src/screens/Information/Information';
@@ -26,57 +28,42 @@ import Collection from './src/screens/Collection/Collection';
 import ChildCollection from './src/screens/Collection/ChildCollection';
 import EditInformation from './src/screens/Information/Edit_Information';
 import AddContact from './src/screens/Collection/AddContact';
+import {useSelector} from 'react-redux';
+import {collectionListSelector} from './src/Redux/Selectors';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-
 function BottomTab({navigation}) {
   return (
     <Tab.Navigator
       screenOptions={{
         headerTitleAlign: 'center',
-        tabBarStyle: {backgroundColor: '#1E62BE'},
+        tabBarStyle: {backgroundColor: '#1E62BE', height: 58},
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: '#65A3F8',
+        tabBarShowLabel: false,
       }}>
       <Tab.Screen
         name="All contacts"
         component={Contact}
         options={{
-          title: 'All contacts',
           headerShown: false,
-          // headerLeft: () => {
-          //   return (
-          //     <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          //       <Image
-          //         style={styles.drawer}
-          //         source={require('./src/assets/icons/iconMore.png')}
-          //       />
-          //     </TouchableOpacity>
-          //   );
-          // },
-          // headerRight: () => {
-          //   return (
-          //     <View style={styles.view}>
-          //       <TouchableOpacity>
-          //         <Image
-          //           style={{tintColor: '#1E62BE'}}
-          //           source={require('./src/assets/icons/viewModul.png')}
-          //         />
-          //       </TouchableOpacity>
-          //       <TouchableOpacity>
-          //         <Image source={require('./src/assets/icons/viewList.png')} />
-          //       </TouchableOpacity>
-          //     </View>
-          //   );
-          // },
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-                style={{tintColor: focused ? 'white' : '#65A3F8'}}
-                source={require('../SampleApp/src/assets/icons/iconTabBar3.png')}
-              />
+              <View style={styles.wrapFlex}>
+                <Image
+                  style={{tintColor: focused ? 'white' : '#65A3F8'}}
+                  source={require('../SampleApp/src/assets/icons/iconTabBar3.png')}
+                />
+                <Text
+                  style={[
+                    styles.tabBarLabel,
+                    {color: focused ? 'white' : '#65A3F8'},
+                  ]}>
+                  Contact
+                </Text>
+              </View>
             );
           },
         }}
@@ -95,13 +82,21 @@ function BottomTab({navigation}) {
               </TouchableOpacity>
             );
           },
-          title: 'Recents',
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-                style={{tintColor: focused ? 'white' : '#65A3F8'}}
-                source={require('../SampleApp/src/assets/icons/iconTabBar4.png')}
-              />
+              <View style={styles.wrapFlex}>
+                <Image
+                  style={{tintColor: focused ? 'white' : '#65A3F8'}}
+                  source={require('../SampleApp/src/assets/icons/iconTabBar4.png')}
+                />
+                <Text
+                  style={[
+                    styles.tabBarLabel,
+                    {color: focused ? 'white' : '#65A3F8'},
+                  ]}>
+                  Recent
+                </Text>
+              </View>
             );
           },
         }}
@@ -110,13 +105,21 @@ function BottomTab({navigation}) {
         name="Scan card"
         component={Scan}
         options={{
-          title: 'Scan card',
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-                style={{tintColor: focused ? 'white' : '#65A3F8'}}
-                source={require('./src/assets/icons/iconTabBar1.png')}
-              />
+              <View style={styles.wrapFlex}>
+                <Image
+                  style={{tintColor: focused ? 'white' : '#65A3F8'}}
+                  source={require('./src/assets/icons/iconTabBar1.png')}
+                />
+                <Text
+                  style={[
+                    styles.tabBarLabel,
+                    {color: focused ? 'white' : '#65A3F8'},
+                  ]}>
+                  Scan card
+                </Text>
+              </View>
             );
           },
         }}
@@ -125,14 +128,22 @@ function BottomTab({navigation}) {
         name="New contact"
         component={NewContact}
         options={{
-          title: 'New contact',
           headerShown: false,
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-                style={{tintColor: focused ? 'white' : '#65A3F8'}}
-                source={require('../SampleApp/src/assets/icons/iconTabBar2.png')}
-              />
+              <View style={styles.wrapFlex}>
+                <Image
+                  style={{tintColor: focused ? 'white' : '#65A3F8'}}
+                  source={require('../SampleApp/src/assets/icons/iconTabBar2.png')}
+                />
+                <Text
+                  style={[
+                    styles.tabBarLabel,
+                    {color: focused ? 'white' : '#65A3F8'},
+                  ]}>
+                  New contact
+                </Text>
+              </View>
             );
           },
         }}
@@ -148,6 +159,22 @@ function BottomTab({navigation}) {
 //   );
 // }
 function MyDrawer({navigation}) {
+  const collectionList = useSelector(collectionListSelector);
+  const Item = ({item}) => {
+    return (
+      <TouchableOpacity
+        style={styles.indexing}
+        onPress={() => navigation.navigate('ChildCollection')}>
+        <Image
+          source={require('../SampleApp/src/assets/icons/iconFolder.png')}
+        />
+        <Text style={styles.groupName}>{item.name}</Text>
+      </TouchableOpacity>
+    );
+  };
+  const renderItem = item => {
+    return <Item item={item.item} />;
+  };
   return (
     <Drawer.Navigator
       screenOptions={{headerShown: false}}
@@ -173,46 +200,11 @@ function MyDrawer({navigation}) {
               <Text style={styles.edit}>Edit</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={styles.indexing}
-            onPress={() => navigation.navigate('ChildCollection')}>
-            <Image
-              source={require('../SampleApp/src/assets/icons/iconFolder.png')}
-            />
-            <Text style={styles.groupName}>All</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.indexing}
-            onPress={() => navigation.navigate('ChildCollection')}>
-            <Image
-              source={require('../SampleApp/src/assets/icons/iconFolder.png')}
-            />
-            <Text style={styles.groupName}>General</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.indexing}
-            onPress={() => navigation.navigate('ChildCollection')}>
-            <Image
-              source={require('../SampleApp/src/assets/icons/iconFolder.png')}
-            />
-            <Text style={styles.groupName}>Investors</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.indexing}
-            onPress={() => navigation.navigate('ChildCollection')}>
-            <Image
-              source={require('../SampleApp/src/assets/icons/iconFolder.png')}
-            />
-            <Text style={styles.groupName}>Lead</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.indexing}
-            onPress={() => navigation.navigate('ChildCollection')}>
-            <Image
-              source={require('../SampleApp/src/assets/icons/iconFolder.png')}
-            />
-            <Text style={styles.groupName}>VIP</Text>
-          </TouchableOpacity>
+          <FlatList
+            data={collectionList}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
         </View>
       )}>
       <Drawer.Screen name="BottomTab" component={BottomTab} />
@@ -302,6 +294,16 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontSize: 18,
     color: '#000',
+  },
+  tabBarLabel: {
+    fontFamily: 'roboto',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: 12,
+    color: '#65A3F8',
+  },
+  wrapFlex: {
+    alignItems: 'center',
   },
 });
 

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -18,33 +18,42 @@ import {
   NativeBaseProvider,
   useDisclose,
 } from 'native-base';
+import {useDispatch, useSelector} from 'react-redux';
+import {collectionListSelector} from '../../Redux/Selectors';
+import {addNewCollection, editNameGroup} from '../../Redux/Actions';
+import {collectionSlide} from './CollectionSlide';
 export default function Collection() {
-  const DATA = [
-    {
-      id: '001',
-      name: 'All',
-    },
-    {
-      id: '002',
-      name: 'General',
-    },
-    {
-      id: '003',
-      name: 'Investors',
-    },
-    {
-      id: '004',
-      name: 'Lead',
-    },
-    {
-      id: '005',
-      name: 'VIP',
-    },
-  ];
   const {isOpen, onOpen, onClose} = useDisclose();
   const [nameCollection, setNameCollection] = useState(false);
+  const [editNameCollection, setEditNameCollection] = useState(false);
   const [nameGroup, setNameGroup] = useState('');
+  const [idGroup, setIdGroup] = useState('');
+  const [changeNameGroup, setChangeNameGroup] = useState('');
   const navigation = useNavigation();
+  const collectionList = useSelector(collectionListSelector);
+  const dispatch = useDispatch();
+  const handleChangeNameGroup = nameGroup => {
+    setChangeNameGroup(nameGroup);
+  };
+  const handleNameGroup = nameGroup => {
+    setNameGroup(nameGroup);
+  };
+  const handleAddNewCollection = () => {
+    dispatch(
+      collectionSlide.actions.addCollection({
+        id: Date.now(),
+        name: nameGroup,
+        folderBig: require('../../assets/icons/iconFolderBig.png'),
+        moreOption: require('../../assets/icons/moreOption.png'),
+      }),
+    );
+  };
+  const saveEditName = (idGroup, nameGroup) => {
+    dispatch(collectionSlide.actions.editNameGroup({idGroup, nameGroup}));
+  };
+  const deleteGroup = idGroup => {
+    dispatch(collectionSlide.actions.deleteGroup(idGroup));
+  };
   const confirm = () => {
     Alert.alert('Confirm', 'Bạn thực sự muốn xóa group này!', [
       {
@@ -54,7 +63,10 @@ export default function Collection() {
       },
       {
         text: 'Ok',
-        onPress: () => onClose(),
+        onPress: () => {
+          onClose();
+          deleteGroup(idGroup);
+        },
       },
     ]);
   };
@@ -63,15 +75,22 @@ export default function Collection() {
       <View>
         <TouchableOpacity
           style={styles.section}
-          onPress={() => navigation.navigate('ChildCollection')}>
-          <Image
-            style={styles.iconFolder}
-            source={require('../../assets/icons/iconFolderBig.png')}
-          />
+          onPress={() => {
+            navigation.navigate('ChildCollection', {
+              title: item.name,
+            });
+          }}>
+          <Image style={styles.iconFolder} source={item.folderBig} />
           <View style={styles.bottomLine}>
             <Text style={styles.Name}>{item.name}</Text>
-            <TouchableOpacity style={styles.moreOption} onPress={onOpen}>
-              <Image source={require('../../assets/icons/moreOption.png')} />
+            <TouchableOpacity
+              style={styles.moreOption}
+              onPress={() => {
+                onOpen();
+                setIdGroup(item.id);
+                handleChangeNameGroup(item.name);
+              }}>
+              <Image source={item.moreOption} />
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -96,7 +115,10 @@ export default function Collection() {
             startIcon={
               <Image source={require('../../assets/icons/iconEdit.png')} />
             }
-            onPress={() => navigation.navigate('ChildCollection')}>
+            onPress={() => {
+              setEditNameCollection(true);
+              onClose();
+            }}>
             Edit
           </Actionsheet.Item>
           <Actionsheet.Item
@@ -129,7 +151,7 @@ export default function Collection() {
       </View>
       <FlatList
         style={styles.flatList}
-        data={DATA}
+        data={collectionList}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
@@ -149,8 +171,8 @@ export default function Collection() {
             </Center>
             <TextInput
               style={styles.inputNameGroup}
-              onChangeText={e => {
-                setNameGroup(e);
+              onChangeText={value => {
+                handleNameGroup(value);
               }}
               value={nameGroup}
               placeholder="Add text"
@@ -165,7 +187,49 @@ export default function Collection() {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.doneButton}
-                onPress={() => setNameCollection(false)}>
+                onPress={() => {
+                  setNameCollection(false), handleAddNewCollection();
+                }}>
+                <Text style={styles.contentText}>Done</Text>
+              </TouchableOpacity>
+            </Center>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={editNameCollection}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setNameCollection(false);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Center style={styles.modalTitle}>
+              <Text style={styles.nameModalTitle}>Edit name group</Text>
+            </Center>
+            <TextInput
+              style={styles.inputNameGroup}
+              value={changeNameGroup}
+              onChangeText={value => {
+                handleChangeNameGroup(value);
+              }}
+            />
+            <Center style={styles.buttonChose}>
+              <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={() => {
+                  setEditNameCollection(false);
+                }}>
+                <Text style={styles.contentText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.doneButton}
+                onPress={() => {
+                  setEditNameCollection(false);
+                  saveEditName(idGroup, changeNameGroup);
+                }}>
                 <Text style={styles.contentText}>Done</Text>
               </TouchableOpacity>
             </Center>
@@ -286,6 +350,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   inputNameGroup: {
+    fontSize: 18,
+    fontWeight: '500',
     height: 64,
     width: 220,
     borderBottomWidth: 1,

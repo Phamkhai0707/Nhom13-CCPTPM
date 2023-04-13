@@ -9,102 +9,12 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeBaseProvider} from 'native-base';
+import {contentCollectionSelector} from '../../Redux/Selectors';
+import {useSelector} from 'react-redux';
 export default function ChildCollection() {
-  const DATA = [
-    {
-      value: 'Dương Lê',
-      key: 1,
-      phone: '0977272123',
-      imageAvata: require('../../assets/images/avatar01.png'),
-      isChecked: false,
-    },
-    {
-      value: 'Thùy Trang',
-      key: 2,
-      phone: '0977272123',
-      imageAvata: require('../../assets/images/avatar02.png'),
-      isChecked: false,
-    },
-    {
-      key: 3,
-      phone: '0977272123',
-      value: 'Hồng Đăng',
-      imageAvata: require('../../assets/images/avatar03.png'),
-      isChecked: false,
-    },
-    {
-      key: 4,
-      phone: '0977272123',
-      value: 'Nguyễn Tiến Nam',
-      imageAvata: require('../../assets/images/avatar04.png'),
-      isChecked: false,
-    },
-    {
-      key: 5,
-      phone: '0977272123',
-      value: 'Bảo Ngọc',
-      imageAvata: require('../../assets/images/avatar05.png'),
-      isChecked: false,
-    },
-    {
-      key: 6,
-      phone: '0977272123',
-      value: 'Thái Thùy Trang',
-      imageAvata: require('../../assets/images/avatar06.png'),
-      isChecked: false,
-    },
-    {
-      key: 7,
-      phone: '0977272123',
-      value: 'Lê Ngọc Linh',
-      imageAvata: require('../../assets/images/avatar07.png'),
-      isChecked: false,
-    },
-    {
-      key: 8,
-      phone: '0977272123',
-      value: 'Trần Thái Hà',
-      imageAvata: require('../../assets/images/avatar01.png'),
-      isChecked: false,
-    },
-    {
-      key: 9,
-      phone: '0977272123',
-      value: 'Nguyễn Tiến Nam',
-      imageAvata: require('../../assets/images/avatar02.png'),
-      isChecked: false,
-    },
-    {
-      value: 'Hồng Đăng',
-      key: 10,
-      phone: '0977272123',
-      imageAvata: require('../../assets/images/avatar03.png'),
-      isChecked: false,
-    },
-    {
-      value: 'Bảo Ngọc',
-      key: 11,
-      phone: '0977272123',
-      imageAvata: require('../../assets/images/avatar04.png'),
-      isChecked: false,
-    },
-  ];
   const navigation = useNavigation();
   const [editName, setStatusEditName] = useState(false);
-  const [data, setData] = useState(DATA);
-  const handlerCheck = value => {
-    const test = data.map(item => {
-      if (item.key === value) {
-        return {
-          ...item,
-          isChecked: !item.isChecked,
-        };
-      }
-      return item;
-    });
-    setData(test);
-  };
-  const total = data.filter(item => item.isChecked);
+  const contentCollectionList = useSelector(contentCollectionSelector);
   const Item = ({item}) => {
     return (
       <TouchableOpacity
@@ -113,14 +23,11 @@ export default function ChildCollection() {
         <Image source={item.imageAvata} />
         <View style={styles.warpInfor}>
           <View style={styles.infor}>
-            <Text style={styles.name}> {item.value} </Text>
+            <Text style={styles.name}> {item.fullName} </Text>
             <Text> {item.phone} </Text>
           </View>
           {editName === true ? (
-            <TouchableOpacity
-              onPress={() => {
-                handlerCheck(item.key);
-              }}>
+            <TouchableOpacity>
               {item.isChecked === false ? (
                 <Image
                   source={require('../../assets/icons/checkBoxfalse.png')}
@@ -139,14 +46,14 @@ export default function ChildCollection() {
     );
   };
   const renderItem = item => {
-    return <Item item={item.item} index={item.index} />;
+    return <Item item={item.item} />;
   };
   return (
     <NativeBaseProvider style={styles.backGround}>
       <View style={styles.header}>
         <View style={styles.warpHeaderTitle}>
           <Text style={styles.headerTitle}>General</Text>
-          <Text>{DATA.length} thành viên</Text>
+          <Text>{contentCollectionList.length} thành viên</Text>
         </View>
         <TouchableOpacity
           style={styles.backButton}
@@ -155,7 +62,7 @@ export default function ChildCollection() {
         </TouchableOpacity>
         {editName === true ? (
           <TouchableOpacity style={styles.delButton}>
-            <Text style={styles.delete}>Delete ({total.length})</Text>
+            <Text style={styles.delete}>Delete ()</Text>
           </TouchableOpacity>
         ) : (
           ''
@@ -164,9 +71,9 @@ export default function ChildCollection() {
 
       <FlatList
         style={{backgroundColor: 'white'}}
-        data={data}
+        data={contentCollectionList}
         renderItem={renderItem}
-        keyExtractor={item => item.key}
+        keyExtractor={item => item.id}
       />
 
       <View style={styles.bottomButton}>

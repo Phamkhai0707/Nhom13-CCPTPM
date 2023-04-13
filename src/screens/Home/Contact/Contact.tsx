@@ -7,12 +7,14 @@ import {
   FlatList,
   View,
   TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {AlphabetList} from 'react-native-section-alphabet-list';
 import {useDispatch, useSelector} from 'react-redux';
-import {inforListRemainingSelector} from '../../Redux/Selectors';
-import {searchContactChange} from '../../Redux/Actions';
+import {inforListRemainingSelector} from '../../../Redux/Selectors';
+import {searchContactChange} from '../../../Redux/Actions';
 
 export default function Contact() {
   const navigation = useNavigation();
@@ -20,6 +22,7 @@ export default function Contact() {
   const [changeView, setChangeView] = useState('activeModul');
   const [filterStatus, setFilterStatus] = useState(false);
   const inforList = useSelector(inforListRemainingSelector);
+  // const searchContactName = useSelector(searchContactSelector);
   const dispatch = useDispatch();
   const changeList = [...inforList].sort((a, b) =>
     a.fullName.localeCompare(b.fullName),
@@ -28,6 +31,7 @@ export default function Contact() {
     setSearchContact(value);
     dispatch(searchContactChange(value));
   };
+  // console.log('chennnn', searchContactName);
   const handleView = (text: string) => {
     setChangeView(text);
   };
@@ -38,7 +42,7 @@ export default function Contact() {
         onPress={() => navigation.navigate('Information')}>
         <Image
           style={styles.imageInfor}
-          source={require('../../assets/images/per1.png')}
+          source={require('../../../assets/images/per1.png')}
         />
         <Text style={styles.infor1}>{item.fullName}</Text>
         <Text style={styles.infor2}>{item.company}</Text>
@@ -50,125 +54,129 @@ export default function Contact() {
   };
 
   return (
-    <View style={{backgroundColor: 'white', flex: 1}}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.iconMore}
-          onPress={() => navigation.toggleDrawer('MyDrawer')}>
-          <Image source={require('../../assets/icons/iconMore.png')} />
-        </TouchableOpacity>
-        <Text style={styles.textHeader}> All contacts </Text>
-        <View style={styles.view}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={{backgroundColor: 'white', flex: 1}}>
+        <View style={styles.header}>
           <TouchableOpacity
-            onPress={() => {
-              handleView('activeModul');
-            }}>
-            <Image
-              style={{
-                tintColor: changeView === 'activeModul' ? '#1e62be' : '#757575',
-              }}
-              source={require('../../assets/icons/viewModul.png')}
-            />
+            style={styles.iconMore}
+            onPress={() => navigation.toggleDrawer('MyDrawer')}>
+            <Image source={require('../../../assets/icons/iconMore.png')} />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              handleView('activeList');
-            }}>
-            <Image
-              style={{
-                tintColor: changeView === 'activeList' ? '#1e62be' : '#757575',
-              }}
-              source={require('../../assets/icons/viewList.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={{flexDirection: 'row'}}>
-        <View
-          style={[
-            styles.search,
-            {width: changeView === 'activeList' ? '93%' : '80%'},
-          ]}>
-          <Image
-            style={styles.iconSearch}
-            source={require('../../assets/icons/icon_search.png')}
-          />
-          <TextInput
-            style={{width: '100%'}}
-            onChangeText={handleSearchContactChange}
-            value={searchContact}
-            placeholder="Search"
-          />
-        </View>
-        {changeView === 'activeModul' ? (
-          filterStatus === false ? (
+          <Text style={styles.textHeader}> All contacts </Text>
+          <View style={styles.view}>
             <TouchableOpacity
-              style={styles.filter}
-              onPress={() => setFilterStatus(true)}>
+              onPress={() => {
+                handleView('activeModul');
+              }}>
               <Image
-                style={styles.iconfilter}
-                source={require('../../assets/icons/icon_filter1.png')}
+                style={{
+                  tintColor:
+                    changeView === 'activeModul' ? '#1e62be' : '#757575',
+                }}
+                source={require('../../../assets/icons/viewModul.png')}
               />
             </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handleView('activeList');
+              }}>
+              <Image
+                style={{
+                  tintColor:
+                    changeView === 'activeList' ? '#1e62be' : '#757575',
+                }}
+                source={require('../../../assets/icons/viewList.png')}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <View
+            style={[
+              styles.search,
+              {width: changeView === 'activeList' ? '93%' : '80%'},
+            ]}>
+            <Image
+              style={styles.iconSearch}
+              source={require('../../../assets/icons/icon_search.png')}
+            />
+            <TextInput
+              style={{width: '100%'}}
+              value={searchContact}
+              onChangeText={value => handleSearchContactChange(value)}
+              placeholder="Search"
+            />
+          </View>
+          {changeView === 'activeModul' ? (
+            filterStatus === false ? (
+              <TouchableOpacity
+                style={styles.filter}
+                onPress={() => setFilterStatus(true)}>
+                <Image
+                  style={styles.iconfilter}
+                  source={require('../../../assets/icons/icon_filter1.png')}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.filter}
+                onPress={() => setFilterStatus(false)}>
+                <Image
+                  style={styles.iconfilterActive}
+                  source={require('../../../assets/icons/icon_filter1.png')}
+                />
+              </TouchableOpacity>
+            )
           ) : (
-            <TouchableOpacity
-              style={styles.filter}
-              onPress={() => setFilterStatus(false)}>
-              <Image
-                style={styles.iconfilterActive}
-                source={require('../../assets/icons/icon_filter1.png')}
-              />
-            </TouchableOpacity>
-          )
+            <></>
+          )}
+        </View>
+
+        {changeView === 'activeModul' ? (
+          <FlatList
+            legacyImplementation={true}
+            style={styles.flatList}
+            data={inforList}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            numColumns={2}
+          />
         ) : (
-          ''
+          <></>
+        )}
+        {changeView === 'activeList' ? (
+          <AlphabetList
+            style={styles.sectionList}
+            data={inforList}
+            indexLetterStyle={{
+              color: '#1e62be',
+              fontSize: 15,
+            }}
+            renderCustomItem={item => {
+              return (
+                <TouchableOpacity
+                  style={styles.person}
+                  onPress={() => navigation.navigate('Information')}>
+                  <Image source={item.imageAvata} />
+                  <View style={styles.inforPerson}>
+                    <Text style={styles.name}> {item.value} </Text>
+                    <Text> {item.phone} </Text>
+                    <Text> {item.company} </Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+            renderCustomSectionHeader={section => (
+              <View style={styles.headerTitle}>
+                <Text style={styles.title}> {section.title} </Text>
+              </View>
+            )}
+          />
+        ) : (
+          <></>
         )}
       </View>
-
-      {changeView === 'activeModul' ? (
-        <FlatList
-          style={styles.flatList}
-          data={filterStatus ? changeList : inforList}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          numColumns={2}
-        />
-      ) : (
-        ''
-      )}
-      {changeView === 'activeList' ? (
-        <AlphabetList
-          style={styles.sectionList}
-          data={inforList}
-          indexLetterStyle={{
-            color: '#1e62be',
-            fontSize: 15,
-          }}
-          // keyExtractor={(item, index) => item + index}
-          renderCustomItem={item => {
-            return (
-              <TouchableOpacity
-                style={styles.person}
-                onPress={() => navigation.navigate('Information')}>
-                <Image source={item.imageAvata} />
-                <View style={styles.inforPerson}>
-                  <Text style={styles.name}> {item.value} </Text>
-                  <Text> {item.phone} </Text>
-                  <Text> {item.company} </Text>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-          renderCustomSectionHeader={section => (
-            <View style={styles.headerTitle}>
-              <Text style={styles.title}> {section.title} </Text>
-            </View>
-          )}
-        />
-      ) : (
-        ''
-      )}
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({
