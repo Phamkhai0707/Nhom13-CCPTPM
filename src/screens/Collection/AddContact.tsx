@@ -9,126 +9,40 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {AlphabetList} from 'react-native-section-alphabet-list';
+import {useDispatch, useSelector} from 'react-redux';
+import {inforListRemainingInAddContactSelector} from '../../Redux/Selectors';
+import {contentCollectionSlide} from './ChildCollection/ContentCollectionSlide';
+import {contactSlide} from '../Home/Contact/ContactSlide';
 
 export default function AddContact() {
-  const DATA = [
-    {
-      value: 'Dương Lê',
-      key: '001',
-      phone: '0977272123',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar01.png'),
-      isChecked: false,
-    },
-    {
-      value: 'Thùy Trang',
-      key: '002',
-      phone: '0977272123',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar02.png'),
-      isChecked: false,
-    },
-    {
-      key: '003',
-      phone: '0977272123',
-      value: 'Hồng Đăng',
-      bank: 'OTP',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar03.png'),
-      isChecked: false,
-    },
-    {
-      key: '004',
-      phone: '0977272123',
-      value: 'Nguyễn Tiến Nam',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar04.png'),
-      isChecked: false,
-    },
-    {
-      key: '005',
-      phone: '0977272123',
-      value: 'Bảo Ngọc',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar05.png'),
-      isChecked: false,
-    },
-    {
-      key: '006',
-      phone: '0977272123',
-      value: 'Thái Thùy Trang',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar06.png'),
-      isChecked: false,
-    },
-    {
-      key: '007',
-      phone: '0977272123',
-      value: 'Lê Ngọc Linh',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar07.png'),
-      isChecked: false,
-    },
-    {
-      key: '008',
-      phone: '0977272123',
-      value: 'Trần Thái Hà',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar01.png'),
-      isChecked: false,
-    },
-    {
-      key: '009',
-      phone: '0977272123',
-      value: 'Nguyễn Tiến Nam',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar02.png'),
-      isChecked: false,
-    },
-    {
-      value: 'Hồng Đăng',
-      key: '010',
-      phone: '0977272123',
-      bank: 'OTP',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar03.png'),
-      isChecked: false,
-    },
-    {
-      value: 'Bảo Ngọc',
-      key: '011',
-      phone: '0977272123',
-      bank: 'Techcombank',
-      image: require('../../assets/images/per1.png'),
-      imageAvata: require('../../assets/images/avatar04.png'),
-      isChecked: false,
-    },
-  ];
+  const inforListRemainingInAddContact = useSelector(
+    inforListRemainingInAddContactSelector,
+  );
+  const [searchContact, setSearchContact] = useState('');
   const navigation = useNavigation();
-  const [number, setNumber] = useState('');
-  const [checker, setCheckBox] = useState(false);
-  const [count, setCount] = useState(0);
-  const handlerCheckBox = () => {
-    if (checker) {
-      setCount(count - 1);
-      setCheckBox(!checker);
-      return;
-    }
-    setCount(count + 1);
-    setCheckBox(!checker);
+  const [checkList, setCheckList] = useState([]);
+  const dispatch = useDispatch();
+  const isChecked = id => {
+    return checkList.includes(id);
   };
-  const handleText = () => {
-    setNumber('');
+  const toggleStatus = id => {
+    isChecked(id)
+      ? setCheckList(checkList.filter(item => item !== id))
+      : setCheckList([...checkList, id]);
   };
-
+  const handleSearchContactChange = value => {
+    setSearchContact(value);
+    dispatch(contactSlide.actions.searchInAddContact(value));
+  };
+  const addNewContact = () => {
+    dispatch(
+      contentCollectionSlide.actions.addContactToCollection(
+        inforListRemainingInAddContact.filter(item =>
+          checkList.includes(item.id),
+        ),
+      ),
+    );
+  };
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <View style={styles.header}>
@@ -140,8 +54,12 @@ export default function AddContact() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.doneButton}
-          onPress={() => navigation.navigate('ChildCollection')}>
-          <Text style={styles.done}>Done ({count})</Text>
+          onPress={() => {
+            navigation.navigate('ChildCollection');
+            addNewContact();
+            // setCheckList([]);
+          }}>
+          <Text style={styles.done}>Done ({checkList.length})</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.warpSearch}>
@@ -151,8 +69,9 @@ export default function AddContact() {
             source={require('../../assets/icons/icon_search.png')}
           />
           <TextInput
-            onChangeText={handleText}
-            value={number}
+            style={{flex: 1}}
+            onChangeText={value => handleSearchContactChange(value)}
+            value={searchContact}
             placeholder="Search"
           />
         </View>
@@ -160,43 +79,33 @@ export default function AddContact() {
 
       <AlphabetList
         style={styles.sectionList}
-        data={DATA}
+        data={inforListRemainingInAddContact}
+        keyExtractor={item => item.key}
         indexLetterStyle={{
           color: '#1e62be',
           fontSize: 15,
         }}
         renderCustomItem={item => {
           return (
-            <View
+            <TouchableOpacity
               style={styles.person}
-              onPress={() => navigation.navigate('Information')}>
-              {checker === false ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    handlerCheckBox();
-                  }}>
-                  <Image
-                    source={require('../../assets/icons/checkBoxfalse.png')}
-                  />
-                </TouchableOpacity>
+              onPress={() => toggleStatus(item.id)}>
+              {isChecked(item.id) ? (
+                <Image
+                  source={require('../../assets/icons/checkBoxTrue.png')}
+                />
               ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    handlerCheckBox();
-                  }}>
-                  <Image
-                    source={require('../../assets/icons/checkBoxTrue.png')}
-                  />
-                </TouchableOpacity>
+                <Image
+                  source={require('../../assets/icons/checkBoxfalse.png')}
+                />
               )}
-
               <Image style={styles.avata} source={item.imageAvata} />
               <View style={styles.inforPerson}>
                 <Text style={styles.name}> {item.value} </Text>
                 <Text> {item.phone} </Text>
                 <Text> {item.bank} </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         }}
         renderCustomSectionHeader={section => (
@@ -230,7 +139,7 @@ const styles = StyleSheet.create({
   },
   doneButton: {
     position: 'absolute',
-    marginLeft: 318,
+    marginLeft: 310,
   },
   done: {
     color: '#1e62be',

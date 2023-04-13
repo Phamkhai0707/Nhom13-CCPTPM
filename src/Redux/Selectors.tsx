@@ -1,21 +1,19 @@
-// export const inforListRemainingSelector = state => {
-//   return state.inforList.filter(contact => {
-//     return contact.fullName.includes(state.filter.search);
-//   });
-// };
-import {createSelector} from 'reselect';
-
-export const inforListSelector = (state: {inforList: any}) => state.inforList;
+import {createSelector} from '@reduxjs/toolkit';
+import {useState} from 'react';
+export const inforListSelector = (state: {inforList: any}) =>
+  state.contact.inforList;
 export const collectionListSelector = (state: {collectionList: any}) =>
-  state.collectionList;
-export const searchContactSelector = (state: {filter: string}) =>
-  state.filter.search;
-export const recentListSelector = (state: {recentList: any}) =>
-  state.recentList;
+  state.collection.collectionList;
+export const searchContactSelector = (state: {filters: string}) =>
+  state.contact.filters.search;
+export const searchInAddContactSelector = (state: {filters: string}) =>
+  state.contact.filters.searchInAddContact;
+export const recentListSelector = (state: {recentList: any}) => state.recent;
 export const contentCollectionSelector = (state: {
   contentCollectionList: any;
-}) => state.contentCollectionList;
-
+}) => state.contentCollection;
+export const detailContactSelector = state => state.contact.detailContact;
+export const phoneNumberUISelector = state => state.contact.phoneNumber;
 export const inforListRemainingSelector = createSelector(
   inforListSelector,
   searchContactSelector,
@@ -25,13 +23,12 @@ export const inforListRemainingSelector = createSelector(
     });
   },
 );
-// export const inforListRemainingSelector = createSelector(
-//   inforListSelector,
-//   searchContactSelector,
-//   (inforList, search) => {
-//     console.log('ccscas', inforList);
-//     return inforList.filter(contactName => {
-//       return inforList.name.includes(search);
-//     });
-//   },
-// );
+export const inforListRemainingInAddContactSelector = createSelector(
+  inforListSelector,
+  searchInAddContactSelector,
+  (inforList, search) => {
+    return inforList.filter(contact => {
+      return contact.fullName.includes(search);
+    });
+  },
+);

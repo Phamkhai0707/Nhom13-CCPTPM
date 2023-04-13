@@ -12,10 +12,27 @@ import {
   Keyboard,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {detailContactSelector} from '../../Redux/Selectors';
+import {contactSlide} from '../Home/Contact/ContactSlide';
 
 export default function Information() {
   const navigation = useNavigation();
   const [num, setNumber] = useState('');
+  const detailContact = useSelector(detailContactSelector);
+  const dispatch = useDispatch();
+  const deleteContact = () => {
+    dispatch(contactSlide.actions.deleteContact(detailContact.id));
+  };
+  // const openURL = async (url: string) => {
+  //   const isSupported = await Linking.canOpenURL(url);
+  //   console.log('check', isSupported);
+  //   if (isSupported) {
+  //     await Linking.openURL(url);
+  //   } else {
+  //     Alert.alert(`Can't open this URL: ${url}`);
+  //   }
+  // };
   const confirm = () => {
     Alert.alert('Confirm', 'Bạn thực sự muốn xóa liên hệ này', [
       {
@@ -25,11 +42,14 @@ export default function Information() {
       },
       {
         text: 'OK',
+        onPress: () => {
+          deleteContact();
+          navigation.goBack();
+        },
         // onPress: () => console.log('OK Pressed')
       },
     ]);
   };
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
@@ -47,19 +67,17 @@ export default function Information() {
         </View>
         <View style={styles.boxAvatar}>
           <TouchableOpacity>
-            <Image
-              style={styles.avatar}
-              source={require('../../assets/images/avatar.png')}
-            />
+            <Image style={styles.avatar} source={detailContact.imageAvata} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.changeAvatar}>
             <Image source={require('../../assets/icons/changeAvatar.png')} />
           </TouchableOpacity>
-          <Text style={styles.text1}>Nguyễn Tiến Nam</Text>
-          <Text style={styles.text2}>UI/UX Design</Text>
+          <Text style={styles.text1}>{detailContact.fullName}</Text>
+          <Text style={styles.text2}>{detailContact.company}</Text>
           <View style={styles.feature}>
             <View style={styles.aloneFeature}>
-              <TouchableOpacity onPress={() => Linking.openURL('tel:')}>
+              <TouchableOpacity
+                onPress={() => Linking.openURL(`tel:${detailContact.phone}`)}>
                 <Image
                   source={require('../../assets/icons/iconFeature1.png')}
                 />
@@ -67,7 +85,8 @@ export default function Information() {
               <Text style={styles.text3}>Call</Text>
             </View>
             <View style={styles.aloneFeature}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => Linking.openURL('https://www.facebook.com/')}>
                 <Image
                   source={require('../../assets/icons/iconFeature2.png')}
                 />
@@ -75,7 +94,8 @@ export default function Information() {
               <Text style={styles.text3}>Messenger</Text>
             </View>
             <View style={styles.aloneFeature}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => Linking.openURL('https://www.google.com/')}>
                 <Image
                   source={require('../../assets/icons/iconFeature3.png')}
                 />
@@ -83,7 +103,10 @@ export default function Information() {
               <Text style={styles.text3}>Website</Text>
             </View>
             <View style={styles.aloneFeature}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  Linking.openURL(`mailto:${detailContact.email}`)
+                }>
                 <Image
                   source={require('../../assets/icons/iconFeature4.png')}
                 />
@@ -93,10 +116,12 @@ export default function Information() {
           </View>
         </View>
         <View style={styles.infor}>
-          <View style={styles.box1}>
+          <TouchableOpacity
+            style={styles.box1}
+            onPress={() => Linking.openURL(`tel:${detailContact.phone}`)}>
             <Text style={styles.text4}>Điện thoại</Text>
-            <Text style={styles.text5}>0977272160</Text>
-          </View>
+            <Text style={styles.text5}>{detailContact.phone}</Text>
+          </TouchableOpacity>
           <View style={styles.box2}>
             <TextInput
               style={styles.note}
@@ -106,7 +131,9 @@ export default function Information() {
               placeholderTextColor={'#000'}
             />
           </View>
-          <TouchableOpacity style={styles.box3}>
+          <TouchableOpacity
+            style={styles.box3}
+            onPress={() => Linking.openURL(`sms:${detailContact.phone}`)}>
             <Text style={styles.text4}>Gửi tin nhắn</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.box3} onPress={() => confirm()}>
@@ -145,6 +172,8 @@ const styles = StyleSheet.create({
   },
   avatar: {
     marginTop: 20,
+    width: 100,
+    height: 100,
   },
   changeAvatar: {
     top: -28,

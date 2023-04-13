@@ -9,12 +9,17 @@ import {
   Linking,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {recentListSelector} from '../../../Redux/Selectors';
+import {contactSlide} from '../Contact/ContactSlide';
 
 export default function Recent() {
   const navigation = useNavigation();
   const recentList = useSelector(recentListSelector);
+  const dispatch = useDispatch();
+  const detailContact = id => {
+    dispatch(contactSlide.actions.detailContactFrom(id));
+  };
   const Item = ({item}) => {
     return (
       <View
@@ -41,7 +46,10 @@ export default function Recent() {
               <Text style={styles.text3}>{item.time}</Text>
               <TouchableOpacity
                 style={styles.iconInfor}
-                onPress={() => navigation.navigate('Information')}>
+                onPress={() => {
+                  navigation.navigate('Information');
+                  detailContact(item.id);
+                }}>
                 <Image source={item.iconInfor} />
               </TouchableOpacity>
             </View>

@@ -6,9 +6,7 @@ export default function Scan() {
   const [count, upCount] = useState(0);
   const handleCount = count => {
     upCount(count);
-    // console.log('check', count);
   };
-  console.log('check', Date.now());
   return (
     <View>
       <Text

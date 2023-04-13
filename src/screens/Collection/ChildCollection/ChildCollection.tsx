@@ -7,19 +7,54 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {NativeBaseProvider} from 'native-base';
-import {contentCollectionSelector} from '../../Redux/Selectors';
-import {useSelector} from 'react-redux';
+import {contentCollectionSelector} from '../../../Redux/Selectors';
+import {useDispatch, useSelector} from 'react-redux';
+import {contactSlide} from '../../Home/Contact/ContactSlide';
+import {contentCollectionSlide} from './ContentCollectionSlide';
 export default function ChildCollection() {
+  const route = useRoute();
+  const {params} = route;
   const navigation = useNavigation();
   const [editName, setStatusEditName] = useState(false);
   const contentCollectionList = useSelector(contentCollectionSelector);
+  const [checkedList, setCheckedList] = useState([]);
+  const dispatch = useDispatch();
+  const detailContact = id => {
+    dispatch(contactSlide.actions.detailContactFrom(id));
+  };
+  const isChecked = id => {
+    return checkedList.includes(id);
+  };
+  const toggleStatus = id => {
+    if (editName === true) {
+      if (isChecked(id)) {
+        setCheckedList(checkedList.filter(item => item !== id));
+      } else {
+        setCheckedList([...checkedList, id]);
+      }
+    }
+  };
+  const deleteContactCollection = () => {
+    dispatch(
+      contentCollectionSlide.actions.deleteContactOfCollection(checkedList),
+    );
+  };
+  // const contentSelected = () => {
+  //   return contentCollectionList.map(item =>
+  //     Object.assign({}, item, {checked: false}),
+  //   );
+  // };
   const Item = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.per}
-        onPress={() => navigation.navigate('Information')}>
+        onPress={() => {
+          detailContact(item.id);
+          toggleStatus(item.id);
+          editName === false ? navigation.navigate('Information') : {};
+        }}>
         <Image source={item.imageAvata} />
         <View style={styles.warpInfor}>
           <View style={styles.infor}>
@@ -27,19 +62,17 @@ export default function ChildCollection() {
             <Text> {item.phone} </Text>
           </View>
           {editName === true ? (
-            <TouchableOpacity>
-              {item.isChecked === false ? (
-                <Image
-                  source={require('../../assets/icons/checkBoxfalse.png')}
-                />
-              ) : (
-                <Image
-                  source={require('../../assets/icons/checkBoxTrue.png')}
-                />
-              )}
-            </TouchableOpacity>
+            isChecked(item.id) ? (
+              <Image
+                source={require('../../../assets/icons/checkBoxTrue.png')}
+              />
+            ) : (
+              <Image
+                source={require('../../../assets/icons/checkBoxfalse.png')}
+              />
+            )
           ) : (
-            ''
+            <></>
           )}
         </View>
       </TouchableOpacity>
@@ -52,17 +85,24 @@ export default function ChildCollection() {
     <NativeBaseProvider style={styles.backGround}>
       <View style={styles.header}>
         <View style={styles.warpHeaderTitle}>
-          <Text style={styles.headerTitle}>General</Text>
+          <Text style={styles.headerTitle}>
+            {params?.title ? params.title : ''}
+          </Text>
           <Text>{contentCollectionList.length} thành viên</Text>
         </View>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.navigate('Collection')}>
-          <Image source={require('../../assets/icons/arrow.png')} />
+          <Image source={require('../../../assets/icons/arrow.png')} />
         </TouchableOpacity>
         {editName === true ? (
-          <TouchableOpacity style={styles.delButton}>
-            <Text style={styles.delete}>Delete ()</Text>
+          <TouchableOpacity
+            style={styles.delButton}
+            onPress={() => {
+              deleteContactCollection();
+              setCheckedList([]);
+            }}>
+            <Text style={styles.delete}>Delete ({checkedList.length})</Text>
           </TouchableOpacity>
         ) : (
           ''
@@ -80,13 +120,13 @@ export default function ChildCollection() {
         <TouchableOpacity
           style={styles.valueBotBut}
           onPress={() => navigation.navigate('AddContact')}>
-          <Image source={require('../../assets/icons/Addcontact.png')} />
+          <Image source={require('../../../assets/icons/Addcontact.png')} />
           <Text style={styles.textBottomButton}>Add contact</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.valueBotBut}
           onPress={() => setStatusEditName(!editName)}>
-          <Image source={require('../../assets/icons/editName.png')} />
+          <Image source={require('../../../assets/icons/editName.png')} />
           <Text style={styles.textBottomButton}>Edit name</Text>
         </TouchableOpacity>
       </View>
@@ -124,7 +164,7 @@ const styles = StyleSheet.create({
   },
   delButton: {
     position: 'absolute',
-    marginLeft: 305,
+    marginLeft: 300,
   },
   delete: {
     fontFamily: 'roboto',

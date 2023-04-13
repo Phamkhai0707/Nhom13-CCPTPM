@@ -19,7 +19,7 @@ import {
   useDisclose,
 } from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
-import {collectionListSelector} from '../../Redux/Selectors';
+import {collectionListSelector} from '../../../Redux/Selectors';
 import {addNewCollection, editNameGroup} from '../../Redux/Actions';
 import {collectionSlide} from './CollectionSlide';
 export default function Collection() {
@@ -43,8 +43,8 @@ export default function Collection() {
       collectionSlide.actions.addCollection({
         id: Date.now(),
         name: nameGroup,
-        folderBig: require('../../assets/icons/iconFolderBig.png'),
-        moreOption: require('../../assets/icons/moreOption.png'),
+        folderBig: require('../../../assets/icons/iconFolderBig.png'),
+        moreOption: require('../../../assets/icons/moreOption.png'),
       }),
     );
   };
@@ -113,7 +113,7 @@ export default function Collection() {
           </Box>
           <Actionsheet.Item
             startIcon={
-              <Image source={require('../../assets/icons/iconEdit.png')} />
+              <Image source={require('../../../assets/icons/iconEdit.png')} />
             }
             onPress={() => {
               setEditNameCollection(true);
@@ -123,7 +123,7 @@ export default function Collection() {
           </Actionsheet.Item>
           <Actionsheet.Item
             startIcon={
-              <Image source={require('../../assets/icons/iconDelete.png')} />
+              <Image source={require('../../../assets/icons/iconDelete.png')} />
             }
             onPress={() => confirm()}>
             <Text style={styles.deleteGroup}>Delete group</Text>
@@ -138,7 +138,7 @@ export default function Collection() {
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}>
-          <Image source={require('../../assets/icons/arrow.png')} />
+          <Image source={require('../../../assets/icons/arrow.png')} />
         </TouchableOpacity>
         <Center>
           <Text style={styles.titleHeader}>Collections</Text>
@@ -146,7 +146,7 @@ export default function Collection() {
         <TouchableOpacity
           style={styles.plusButton}
           onPress={() => setNameCollection(true)}>
-          <Image source={require('../../assets/icons/iconBluePlus.png')} />
+          <Image source={require('../../../assets/icons/iconBluePlus.png')} />
         </TouchableOpacity>
       </View>
       <FlatList

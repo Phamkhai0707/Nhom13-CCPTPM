@@ -14,7 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import {AlphabetList} from 'react-native-section-alphabet-list';
 import {useDispatch, useSelector} from 'react-redux';
 import {inforListRemainingSelector} from '../../../Redux/Selectors';
-import {searchContactChange} from '../../../Redux/Actions';
+import {contactSlide} from './ContactSlide';
 
 export default function Contact() {
   const navigation = useNavigation();
@@ -22,24 +22,28 @@ export default function Contact() {
   const [changeView, setChangeView] = useState('activeModul');
   const [filterStatus, setFilterStatus] = useState(false);
   const inforList = useSelector(inforListRemainingSelector);
-  // const searchContactName = useSelector(searchContactSelector);
   const dispatch = useDispatch();
   const changeList = [...inforList].sort((a, b) =>
     a.fullName.localeCompare(b.fullName),
   );
   const handleSearchContactChange = value => {
     setSearchContact(value);
-    dispatch(searchContactChange(value));
+    dispatch(contactSlide.actions.searchContact(value));
   };
-  // console.log('chennnn', searchContactName);
   const handleView = (text: string) => {
     setChangeView(text);
+  };
+  const contactDetail = item => {
+    dispatch(contactSlide.actions.contactDetail(item));
   };
   const Item = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.box}
-        onPress={() => navigation.navigate('Information')}>
+        onPress={() => {
+          navigation.navigate('Information');
+          contactDetail(item);
+        }}>
         <Image
           style={styles.imageInfor}
           source={require('../../../assets/images/per1.png')}
@@ -136,7 +140,7 @@ export default function Contact() {
           <FlatList
             legacyImplementation={true}
             style={styles.flatList}
-            data={inforList}
+            data={filterStatus ? changeList : inforList}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             numColumns={2}
@@ -148,6 +152,7 @@ export default function Contact() {
           <AlphabetList
             style={styles.sectionList}
             data={inforList}
+            keyExtractor={item => item.key}
             indexLetterStyle={{
               color: '#1e62be',
               fontSize: 15,

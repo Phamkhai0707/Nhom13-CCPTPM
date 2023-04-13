@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -9,22 +10,36 @@ import {
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-import {addNewContact} from '../../Redux/Actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {contactSlide} from './Contact/ContactSlide';
+import {phoneNumberUISelector} from '../../Redux/Selectors';
 export default function NewContact() {
   const navigation = useNavigation();
+  const addPhoneNumberUI = useSelector(phoneNumberUISelector);
   const dispatch = useDispatch();
-  const [add1, setAdd1] = useState();
+  const [addPhone, setAddPhone] = useState([]);
   const [add2, setAdd2] = useState();
   const [add3, setAdd3] = useState();
   const [add4, setAdd4] = useState();
   const [name, setName] = useState();
   const [batch, setBatch] = useState();
   const [company, setCompany] = useState();
-  const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
   const [address, setAddress] = useState();
   const [DoB, setDoB] = useState();
+  // const handleAddPhone = (value, index) => {
+  //   setAddPhone([...addPhone, value]);
+  //   console.log('state', addPhone);
+  // };
+  const handleAdd2 = add => {
+    setAdd2(add);
+  };
+  const handleAdd3 = add => {
+    setAdd3(add);
+  };
+  const handleAdd4 = add => {
+    setAdd4(add);
+  };
   const handlerName = name => {
     setName(name);
   };
@@ -33,9 +48,6 @@ export default function NewContact() {
   };
   const handlerCompany = company => {
     setCompany(company);
-  };
-  const handlerPhone = phone => {
-    setPhone(phone);
   };
   const handlerEmail = email => {
     setEmail(email);
@@ -46,26 +58,14 @@ export default function NewContact() {
   const handlerDoB = DoB => {
     setDoB(DoB);
   };
-  const handleAdd1 = add => {
-    setAdd1(add);
-  };
-  const handleAdd2 = add => {
-    setAdd2(add);
-  };
-  const handleAdd3 = add => {
-    setAdd3(add);
-  };
-  const handleAdd4 = add => {
-    setAdd4(add);
-  };
   const handlerSaveNewContact = () => {
     dispatch(
-      addNewContact({
+      contactSlide.actions.addInfor({
         id: Date.now(),
         fullName: name,
         batch: batch,
         company: company,
-        phone: phone,
+        phone: '',
         email: email,
         address: address,
         DoB: DoB,
@@ -73,6 +73,32 @@ export default function NewContact() {
         imageAvata: require('../../assets/images/avatar01.png'),
       }),
     );
+  };
+  const addPhoneNumber = () => {
+    dispatch(contactSlide.actions.addPhoneNumber(''));
+  };
+  const deletePhoneNumberUI = phoneNum => {
+    dispatch(contactSlide.actions.deletePhoneNumber(phoneNum));
+  };
+  const Item = ({item, index}) => {
+    return (
+      <View style={styles.warpInfor3}>
+        <TouchableOpacity
+          onPress={() => {
+            deletePhoneNumberUI(item);
+          }}>
+          <Image source={require('../../assets/icons/redMinus.png')} />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.textInput}
+          // value={addPhone[index]}
+          // onChangeText={value => handleAddPhone(value, index)}
+        />
+      </View>
+    );
+  };
+  const renderItem = item => {
+    return <Item item={item.item} index={item.index} />;
   };
   return (
     <View style={styles.background}>
@@ -119,27 +145,15 @@ export default function NewContact() {
         </View>
 
         <View style={styles.warpInfor2}>
-          {add1 === 'true' ? (
-            <View style={styles.warpInfor3}>
-              <TouchableOpacity
-                onPress={() => {
-                  handleAdd1('false');
-                }}>
-                <Image source={require('../../assets/icons/redMinus.png')} />
-              </TouchableOpacity>
-              <TextInput
-                style={styles.textInput}
-                value={phone}
-                onChangeText={value => handlerPhone(value)}
-              />
-            </View>
-          ) : (
-            ''
-          )}
+          <FlatList
+            style={styles.listPhoneNumber}
+            data={addPhoneNumberUI}
+            renderItem={renderItem}
+          />
           <View style={styles.warpInfor3}>
             <TouchableOpacity
               onPress={() => {
-                handleAdd1('true');
+                addPhoneNumber();
               }}>
               <Image source={require('../../assets/icons/greenPlus.png')} />
             </TouchableOpacity>
@@ -311,6 +325,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 14,
     color: '#000',
+  },
+  listPhoneNumber: {
+    width: '90%',
   },
   textInput: {
     flex: 1,

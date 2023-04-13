@@ -9,13 +9,46 @@ import {
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {detailContactSelector} from '../../Redux/Selectors';
+import {contactSlide} from '../Home/Contact/ContactSlide';
 
 export default function NewContact() {
   const navigation = useNavigation();
+  const detailContact = useSelector(detailContactSelector);
   const [add1, setAdd1] = useState('true');
   const [add2, setAdd2] = useState('true');
   const [add3, setAdd3] = useState('true');
-  const [add4, setAdd4] = useState();
+  const [add4, setAdd4] = useState('true');
+  const [name, setName] = useState(detailContact.fullName);
+  const [batch, setBatch] = useState(detailContact.batch);
+  const [company, setCompany] = useState(detailContact.company);
+  const [phone, setPhone] = useState(detailContact.phone);
+  const [email, setEmail] = useState(detailContact.email);
+  const [address, setAddress] = useState(detailContact.address);
+  const [DoB, setDoB] = useState(detailContact.DoB);
+  const dispatch = useDispatch();
+  const handlerName = name => {
+    setName(name);
+  };
+  const handlerBatch = batch => {
+    setBatch(batch);
+  };
+  const handlerCompany = company => {
+    setCompany(company);
+  };
+  const handlerPhone = phone => {
+    setPhone(phone);
+  };
+  const handlerEmail = email => {
+    setEmail(email);
+  };
+  const handlerAddress = address => {
+    setAddress(address);
+  };
+  const handlerDoB = DoB => {
+    setDoB(DoB);
+  };
   const handleAdd1 = add => {
     setAdd1(add);
   };
@@ -28,6 +61,21 @@ export default function NewContact() {
   const handleAdd4 = add => {
     setAdd4(add);
   };
+  const saveEditContact = () => {
+    dispatch(
+      contactSlide.actions.editContact({
+        id: detailContact.id,
+        fullName: name,
+        value: name,
+        batch: batch,
+        company: company,
+        phone: phone,
+        email: email,
+        address: address,
+        DoB: DoB,
+      }),
+    );
+  };
   return (
     <View style={styles.background}>
       <View style={styles.header}>
@@ -38,13 +86,18 @@ export default function NewContact() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.saveButton}
-          onPress={() => navigation.navigate('Information')}>
+          onPress={() => {
+            navigation.navigate('Information');
+            saveEditContact();
+          }}>
           <Text style={styles.save}> Save </Text>
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.scroll}>
         <View style={styles.avata}>
-          <Image source={require('../../assets/images/avatar.png')} />
+          <TouchableOpacity>
+            <Image style={styles.avataFlex} source={detailContact.imageAvata} />
+          </TouchableOpacity>
           <TouchableOpacity style={styles.changeAvata}>
             <Image source={require('../../assets/icons/changeAvatar.png')} />
           </TouchableOpacity>
@@ -52,13 +105,20 @@ export default function NewContact() {
         <View style={styles.warpInfor1}>
           <TextInput
             style={styles.infor1}
-            value={'Nam Design'}
+            value={name}
+            onChangeText={value => handlerName(value)}
             placeholder="Họ"
           />
-          <TextInput style={styles.infor1} placeholder="Vị trí" />
           <TextInput
             style={styles.infor1}
-            value={'Base.vn'}
+            value={batch}
+            onChangeText={value => handlerBatch(value)}
+            placeholder="Vị trí"
+          />
+          <TextInput
+            style={styles.infor1}
+            value={company}
+            onChangeText={value => handlerCompany(value)}
             placeholder="Công ty"
           />
         </View>
@@ -72,7 +132,11 @@ export default function NewContact() {
                 }}>
                 <Image source={require('../../assets/icons/redMinus.png')} />
               </TouchableOpacity>
-              <TextInput style={styles.textInput} value={'0977272160'} />
+              <TextInput
+                style={styles.textInput}
+                value={phone}
+                onChangeText={value => handlerPhone(value)}
+              />
             </View>
           ) : (
             ''
@@ -99,7 +163,8 @@ export default function NewContact() {
               </TouchableOpacity>
               <TextInput
                 style={styles.textInput}
-                value={'basenamnt@gmail.com'}
+                value={email}
+                onChangeText={value => handlerEmail(value)}
               />
             </View>
           ) : (
@@ -127,7 +192,8 @@ export default function NewContact() {
               </TouchableOpacity>
               <TextInput
                 style={styles.textInput}
-                value={'Số 12, Khuất Duy Tiến, Thanh Xuân, Hà Nội'}
+                value={address}
+                onChangeText={value => handlerAddress(value)}
               />
             </View>
           ) : (
@@ -153,7 +219,11 @@ export default function NewContact() {
                 }}>
                 <Image source={require('../../assets/icons/redMinus.png')} />
               </TouchableOpacity>
-              <TextInput style={styles.textInput} />
+              <TextInput
+                style={styles.textInput}
+                value={DoB}
+                onChangeText={value => handlerDoB(value)}
+              />
             </View>
           ) : (
             ''
@@ -209,6 +279,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height: 130,
+  },
+  avataFlex: {
+    width: 100,
+    height: 100,
   },
   changeAvata: {
     marginTop: -30,
