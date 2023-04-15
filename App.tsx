@@ -15,10 +15,7 @@ import {
   View,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Login from './src/screens/Login/Login';
@@ -31,22 +28,14 @@ import Collection from './src/screens/Collection/Collection/Collection';
 import ChildCollection from './src/screens/Collection/ChildCollection/ChildCollection';
 import EditInformation from './src/screens/Information/Edit_Information';
 import AddContact from './src/screens/Collection/AddContact';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {collectionListSelector} from './src/Redux/Selectors';
+import {collectionSlide} from './src/screens/Collection/Collection/CollectionSlide';
 
-const Stack = createNativeStackNavigator<StackNavigatorParamList>();
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-export type StackNavigationProps = NativeStackNavigationProp<
-  StackNavigatorParamList,
-  'ChildCollection'
->;
-type StackNavigatorParamList = {
-  ChildCollection: {
-    title: string;
-  };
-};
 function BottomTab({navigation}) {
   return (
     <Tab.Navigator
@@ -164,22 +153,20 @@ function BottomTab({navigation}) {
     </Tab.Navigator>
   );
 }
-// function DrawerContent(props) {
-//   return (
-//     <DrawerContentScrollView {...props}>
-//       <DrawerItemList {...props} />
-//     </DrawerContentScrollView>
-//   );
-// }
 function MyDrawer({navigation}) {
   const collectionList = useSelector(collectionListSelector);
+  const dispatch = useDispatch();
+  const navigateTitle = value => {
+    dispatch(collectionSlide.actions.navigateTitleName(value));
+  };
   const Item = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.indexing}
-        onPress={() =>
-          navigation.navigate('ChildCollection', {title: item.name})
-        }>
+        onPress={() => {
+          navigation.navigate('ChildCollection');
+          navigateTitle(item.name);
+        }}>
         <Image
           source={require('../SampleApp/src/assets/icons/iconFolder.png')}
         />

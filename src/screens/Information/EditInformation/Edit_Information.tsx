@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -16,18 +17,59 @@ import {contactSlide} from '../Home/Contact/ContactSlide';
 export default function NewContact() {
   const navigation = useNavigation();
   const detailContact = useSelector(detailContactSelector);
-  const [add1, setAdd1] = useState('true');
-  const [add2, setAdd2] = useState('true');
-  const [add3, setAdd3] = useState('true');
+  const [addNumberPhone, setAddNumberPhone] = useState([
+    ...detailContact.phone,
+  ]);
+  const [addEmail, setAddEmail] = useState([...detailContact.email]);
+  const [addAddress, setAddAddress] = useState([...detailContact.address]);
   const [add4, setAdd4] = useState('true');
   const [name, setName] = useState(detailContact.fullName);
   const [batch, setBatch] = useState(detailContact.batch);
   const [company, setCompany] = useState(detailContact.company);
-  const [phone, setPhone] = useState(detailContact.phone);
-  const [email, setEmail] = useState(detailContact.email);
-  const [address, setAddress] = useState(detailContact.address);
   const [DoB, setDoB] = useState(detailContact.DoB);
   const dispatch = useDispatch();
+  const handleAddNumberPhone = () => {
+    setAddNumberPhone([...addNumberPhone, '']);
+  };
+  const changeNumberPhone = (phone, index) => {
+    const update = [...addNumberPhone];
+    update[index] = phone;
+    setAddNumberPhone([...update]);
+  };
+  const deletePhoneNumber = id => {
+    const newList = addNumberPhone
+      .map((value, index) => (index === id ? (value = null) : value))
+      .filter(value => value !== null);
+    setAddNumberPhone([...newList]);
+  };
+  const handleAddEmail = () => {
+    setAddEmail([...addEmail, '']);
+  };
+  const changeEmail = (email, index) => {
+    const update = [...addEmail];
+    update[index] = email;
+    setAddEmail([...update]);
+  };
+  const deleteEmail = id => {
+    const newList = addEmail
+      .map((value, index) => (index === id ? (value = null) : value))
+      .filter(value => value !== null);
+    setAddEmail([...newList]);
+  };
+  const handleAddAddress = () => {
+    setAddAddress([...addAddress, '']);
+  };
+  const changeAddress = (value, index) => {
+    const update = [...addAddress];
+    update[index] = value;
+    setAddAddress([...update]);
+  };
+  const deleteAddress = id => {
+    const newList = addAddress
+      .map((value, index) => (index === id ? (value = null) : value))
+      .filter(value => value !== null);
+    setAddAddress([...newList]);
+  };
   const handlerName = name => {
     setName(name);
   };
@@ -37,26 +79,8 @@ export default function NewContact() {
   const handlerCompany = company => {
     setCompany(company);
   };
-  const handlerPhone = phone => {
-    setPhone(phone);
-  };
-  const handlerEmail = email => {
-    setEmail(email);
-  };
-  const handlerAddress = address => {
-    setAddress(address);
-  };
   const handlerDoB = DoB => {
     setDoB(DoB);
-  };
-  const handleAdd1 = add => {
-    setAdd1(add);
-  };
-  const handleAdd2 = add => {
-    setAdd2(add);
-  };
-  const handleAdd3 = add => {
-    setAdd3(add);
   };
   const handleAdd4 = add => {
     setAdd4(add);
@@ -69,11 +93,69 @@ export default function NewContact() {
         value: name,
         batch: batch,
         company: company,
-        phone: phone,
-        email: email,
-        address: address,
+        phone: addNumberPhone,
+        email: addEmail,
+        address: addAddress,
         DoB: DoB,
       }),
+    );
+  };
+  const renderItemPhone = ({item, index}) => {
+    return (
+      <View style={styles.warpInfor3}>
+        <TouchableOpacity
+          onPress={() => {
+            deletePhoneNumber(index);
+          }}>
+          <Image source={require('../../assets/icons/redMinus.png')} />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.textInput}
+          keyboardType={'numeric'}
+          value={item}
+          onChangeText={value => {
+            changeNumberPhone(value, index);
+          }}
+        />
+      </View>
+    );
+  };
+  const renderItemEmail = ({item, index}) => {
+    return (
+      <View style={styles.warpInfor3}>
+        <TouchableOpacity
+          onPress={() => {
+            deleteEmail(index);
+          }}>
+          <Image source={require('../../assets/icons/redMinus.png')} />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.textInput}
+          value={item}
+          onChangeText={value => {
+            changeEmail(value, index);
+          }}
+        />
+      </View>
+    );
+  };
+  const renderItemAddress = ({item, index}) => {
+    return (
+      <View style={styles.warpInfor3}>
+        <TouchableOpacity
+          onPress={() => {
+            deleteAddress(index);
+          }}>
+          <Image source={require('../../assets/icons/redMinus.png')} />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.textInput}
+          value={item}
+          onChangeText={value => {
+            changeAddress(value, index);
+          }}
+        />
+      </View>
     );
   };
   return (
@@ -124,27 +206,15 @@ export default function NewContact() {
         </View>
 
         <View style={styles.warpInfor2}>
-          {add1 === 'true' ? (
-            <View style={styles.warpInfor3}>
-              <TouchableOpacity
-                onPress={() => {
-                  handleAdd1('false');
-                }}>
-                <Image source={require('../../assets/icons/redMinus.png')} />
-              </TouchableOpacity>
-              <TextInput
-                style={styles.textInput}
-                value={phone}
-                onChangeText={value => handlerPhone(value)}
-              />
-            </View>
-          ) : (
-            ''
-          )}
+          <FlatList
+            style={styles.listTextInput}
+            data={addNumberPhone}
+            renderItem={renderItemPhone}
+          />
           <View style={styles.warpInfor3}>
             <TouchableOpacity
               onPress={() => {
-                handleAdd1('true');
+                handleAddNumberPhone();
               }}>
               <Image source={require('../../assets/icons/greenPlus.png')} />
             </TouchableOpacity>
@@ -153,27 +223,15 @@ export default function NewContact() {
         </View>
 
         <View style={styles.warpInfor2}>
-          {add2 === 'true' ? (
-            <View style={styles.warpInfor3}>
-              <TouchableOpacity
-                onPress={() => {
-                  handleAdd2('false');
-                }}>
-                <Image source={require('../../assets/icons/redMinus.png')} />
-              </TouchableOpacity>
-              <TextInput
-                style={styles.textInput}
-                value={email}
-                onChangeText={value => handlerEmail(value)}
-              />
-            </View>
-          ) : (
-            ''
-          )}
+          <FlatList
+            style={styles.listTextInput}
+            data={addEmail}
+            renderItem={renderItemEmail}
+          />
           <View style={styles.warpInfor3}>
             <TouchableOpacity
               onPress={() => {
-                handleAdd2('true');
+                handleAddEmail();
               }}>
               <Image source={require('../../assets/icons/greenPlus.png')} />
             </TouchableOpacity>
@@ -182,27 +240,15 @@ export default function NewContact() {
         </View>
 
         <View style={styles.warpInfor2}>
-          {add3 === 'true' ? (
-            <View style={styles.warpInfor3}>
-              <TouchableOpacity
-                onPress={() => {
-                  handleAdd3('false');
-                }}>
-                <Image source={require('../../assets/icons/redMinus.png')} />
-              </TouchableOpacity>
-              <TextInput
-                style={styles.textInput}
-                value={address}
-                onChangeText={value => handlerAddress(value)}
-              />
-            </View>
-          ) : (
-            ''
-          )}
+          <FlatList
+            style={styles.listTextInput}
+            data={addAddress}
+            renderItem={renderItemAddress}
+          />
           <View style={styles.warpInfor3}>
             <TouchableOpacity
               onPress={() => {
-                handleAdd3('true');
+                handleAddAddress();
               }}>
               <Image source={require('../../assets/icons/greenPlus.png')} />
             </TouchableOpacity>
@@ -329,5 +375,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 14,
     color: '#1e62be',
+  },
+  listTextInput: {
+    width: '90%',
   },
 });

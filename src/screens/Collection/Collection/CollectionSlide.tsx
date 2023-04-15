@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 export const collectionSlide = createSlice({
   name: 'collectionList',
   initialState: {
+    titleName: '',
     collectionList: [
       {
         id: 1,
@@ -52,6 +53,9 @@ export const collectionSlide = createSlice({
         state.collectionList.findIndex(item => item.id === action.payload),
         1,
       );
+    },
+    navigateTitleName: (state, action) => {
+      state.titleName = action.payload;
     },
   },
 });

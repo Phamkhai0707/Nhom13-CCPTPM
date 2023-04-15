@@ -7,7 +7,7 @@ import {
   View,
   TextInput,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {AlphabetList} from 'react-native-section-alphabet-list';
 import {useDispatch, useSelector} from 'react-redux';
 import {inforListRemainingInAddContactSelector} from '../../Redux/Selectors';
@@ -49,7 +49,10 @@ export default function AddContact() {
         <Text style={styles.textHeader}> Add contact </Text>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.navigate('ChildCollection')}>
+          onPress={() => {
+            navigation.navigate('ChildCollection');
+            setCheckList([]);
+          }}>
           <Image source={require('../../assets/icons/arrow.png')} />
         </TouchableOpacity>
         <TouchableOpacity
@@ -57,7 +60,7 @@ export default function AddContact() {
           onPress={() => {
             navigation.navigate('ChildCollection');
             addNewContact();
-            // setCheckList([]);
+            setCheckList([]);
           }}>
           <Text style={styles.done}>Done ({checkList.length})</Text>
         </TouchableOpacity>

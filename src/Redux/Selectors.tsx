@@ -14,6 +14,7 @@ export const contentCollectionSelector = (state: {
 }) => state.contentCollection;
 export const detailContactSelector = state => state.contact.detailContact;
 export const phoneNumberUISelector = state => state.contact.phoneNumber;
+export const titleNameSelector = state => state.collection.titleName;
 export const inforListRemainingSelector = createSelector(
   inforListSelector,
   searchContactSelector,

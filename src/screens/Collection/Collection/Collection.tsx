@@ -54,6 +54,9 @@ export default function Collection() {
   const deleteGroup = idGroup => {
     dispatch(collectionSlide.actions.deleteGroup(idGroup));
   };
+  const navigateTitle = value => {
+    dispatch(collectionSlide.actions.navigateTitleName(value));
+  };
   const confirm = () => {
     Alert.alert('Confirm', 'Bạn thực sự muốn xóa group này!', [
       {
@@ -76,9 +79,8 @@ export default function Collection() {
         <TouchableOpacity
           style={styles.section}
           onPress={() => {
-            navigation.navigate('ChildCollection', {
-              title: item.name,
-            });
+            navigation.navigate('ChildCollection');
+            navigateTitle(item.name);
           }}>
           <Image style={styles.iconFolder} source={item.folderBig} />
           <View style={styles.bottomLine}>

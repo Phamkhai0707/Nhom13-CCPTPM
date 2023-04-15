@@ -24,15 +24,6 @@ export default function Information() {
   const deleteContact = () => {
     dispatch(contactSlide.actions.deleteContact(detailContact.id));
   };
-  // const openURL = async (url: string) => {
-  //   const isSupported = await Linking.canOpenURL(url);
-  //   console.log('check', isSupported);
-  //   if (isSupported) {
-  //     await Linking.openURL(url);
-  //   } else {
-  //     Alert.alert(`Can't open this URL: ${url}`);
-  //   }
-  // };
   const confirm = () => {
     Alert.alert('Confirm', 'Bạn thực sự muốn xóa liên hệ này', [
       {
@@ -77,7 +68,11 @@ export default function Information() {
           <View style={styles.feature}>
             <View style={styles.aloneFeature}>
               <TouchableOpacity
-                onPress={() => Linking.openURL(`tel:${detailContact.phone}`)}>
+                onPress={() =>
+                  Linking.openURL(
+                    `tel:${detailContact.phone.find(e => e !== undefined)}`,
+                  )
+                }>
                 <Image
                   source={require('../../assets/icons/iconFeature1.png')}
                 />
@@ -86,7 +81,11 @@ export default function Information() {
             </View>
             <View style={styles.aloneFeature}>
               <TouchableOpacity
-                onPress={() => Linking.openURL('https://www.facebook.com/')}>
+                onPress={() =>
+                  Linking.openURL(
+                    `sms:${detailContact.phone.find(e => e !== undefined)}`,
+                  )
+                }>
                 <Image
                   source={require('../../assets/icons/iconFeature2.png')}
                 />
@@ -118,9 +117,15 @@ export default function Information() {
         <View style={styles.infor}>
           <TouchableOpacity
             style={styles.box1}
-            onPress={() => Linking.openURL(`tel:${detailContact.phone}`)}>
+            onPress={() =>
+              Linking.openURL(
+                `tel:${detailContact.phone.find(e => e !== undefined)}`,
+              )
+            }>
             <Text style={styles.text4}>Điện thoại</Text>
-            <Text style={styles.text5}>{detailContact.phone}</Text>
+            <Text style={styles.text5}>
+              {detailContact.phone.find(e => e !== undefined)}
+            </Text>
           </TouchableOpacity>
           <View style={styles.box2}>
             <TextInput
@@ -133,7 +138,11 @@ export default function Information() {
           </View>
           <TouchableOpacity
             style={styles.box3}
-            onPress={() => Linking.openURL(`sms:${detailContact.phone}`)}>
+            onPress={() =>
+              Linking.openURL(
+                `sms:${detailContact.phone.find(e => e !== undefined)}`,
+              )
+            }>
             <Text style={styles.text4}>Gửi tin nhắn</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.box3} onPress={() => confirm()}>
