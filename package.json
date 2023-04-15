@@ -30,6 +30,7 @@
     "redux": "^4.2.1",
     "redux-flipper": "^2.0.2",
     "reselect": "^4.1.7",
+    "styled-components": "^5.3.9",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

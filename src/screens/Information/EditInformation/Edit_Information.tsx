@@ -1,18 +1,27 @@
 import React, {useState} from 'react';
+import {Image, ScrollView, TouchableOpacity} from 'react-native';
 import {
-  FlatList,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+  Background,
+  Header,
+  CancelButton,
+  Cancel,
+  SaveButton,
+  Save,
+  Avata,
+  AvataFlex,
+  ChangeAvata,
+  WrapInfor1,
+  WrapInfor3,
+  WrapInfor2,
+  Infor2,
+  Infor1,
+  Textinput,
+  ListTextInput,
+} from './EditInformationStyled';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {detailContactSelector} from '../../Redux/Selectors';
-import {contactSlide} from '../Home/Contact/ContactSlide';
+import {detailContactSelector} from '../../../Redux/Selectors';
+import {contactSlide} from '../../Home/Contact/ContactSlide';
 
 export default function NewContact() {
   const navigation = useNavigation();
@@ -102,281 +111,167 @@ export default function NewContact() {
   };
   const renderItemPhone = ({item, index}) => {
     return (
-      <View style={styles.warpInfor3}>
+      <WrapInfor3>
         <TouchableOpacity
           onPress={() => {
             deletePhoneNumber(index);
           }}>
-          <Image source={require('../../assets/icons/redMinus.png')} />
+          <Image source={require('../../../assets/icons/redMinus.png')} />
         </TouchableOpacity>
-        <TextInput
-          style={styles.textInput}
+        <Textinput
           keyboardType={'numeric'}
           value={item}
           onChangeText={value => {
             changeNumberPhone(value, index);
           }}
         />
-      </View>
+      </WrapInfor3>
     );
   };
   const renderItemEmail = ({item, index}) => {
     return (
-      <View style={styles.warpInfor3}>
+      <WrapInfor3>
         <TouchableOpacity
           onPress={() => {
             deleteEmail(index);
           }}>
-          <Image source={require('../../assets/icons/redMinus.png')} />
+          <Image source={require('../../../assets/icons/redMinus.png')} />
         </TouchableOpacity>
-        <TextInput
-          style={styles.textInput}
+        <Textinput
           value={item}
           onChangeText={value => {
             changeEmail(value, index);
           }}
         />
-      </View>
+      </WrapInfor3>
     );
   };
   const renderItemAddress = ({item, index}) => {
     return (
-      <View style={styles.warpInfor3}>
+      <WrapInfor3>
         <TouchableOpacity
           onPress={() => {
             deleteAddress(index);
           }}>
-          <Image source={require('../../assets/icons/redMinus.png')} />
+          <Image source={require('../../../assets/icons/redMinus.png')} />
         </TouchableOpacity>
-        <TextInput
-          style={styles.textInput}
+        <Textinput
           value={item}
           onChangeText={value => {
             changeAddress(value, index);
           }}
         />
-      </View>
+      </WrapInfor3>
     );
   };
   return (
-    <View style={styles.background}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.cancelButton}
-          onPress={() => navigation.navigate('Information')}>
-          <Text style={styles.cancel}> Hủy </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.saveButton}
+    <Background>
+      <Header>
+        <CancelButton onPress={() => navigation.navigate('Information')}>
+          <Cancel> Hủy </Cancel>
+        </CancelButton>
+        <SaveButton
           onPress={() => {
             navigation.navigate('Information');
             saveEditContact();
           }}>
-          <Text style={styles.save}> Save </Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView style={styles.scroll}>
-        <View style={styles.avata}>
+          <Save> Save </Save>
+        </SaveButton>
+      </Header>
+      <ScrollView>
+        <Avata>
           <TouchableOpacity>
-            <Image style={styles.avataFlex} source={detailContact.imageAvata} />
+            <AvataFlex source={detailContact.imageAvata} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.changeAvata}>
-            <Image source={require('../../assets/icons/changeAvatar.png')} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.warpInfor1}>
-          <TextInput
-            style={styles.infor1}
+          <ChangeAvata>
+            <Image source={require('../../../assets/icons/changeAvatar.png')} />
+          </ChangeAvata>
+        </Avata>
+        <WrapInfor1>
+          <Infor1
             value={name}
             onChangeText={value => handlerName(value)}
             placeholder="Họ"
           />
-          <TextInput
-            style={styles.infor1}
+          <Infor1
             value={batch}
             onChangeText={value => handlerBatch(value)}
             placeholder="Vị trí"
           />
-          <TextInput
-            style={styles.infor1}
+          <Infor1
             value={company}
             onChangeText={value => handlerCompany(value)}
             placeholder="Công ty"
           />
-        </View>
+        </WrapInfor1>
 
-        <View style={styles.warpInfor2}>
-          <FlatList
-            style={styles.listTextInput}
-            data={addNumberPhone}
-            renderItem={renderItemPhone}
-          />
-          <View style={styles.warpInfor3}>
+        <WrapInfor2>
+          <ListTextInput data={addNumberPhone} renderItem={renderItemPhone} />
+          <WrapInfor3>
             <TouchableOpacity
               onPress={() => {
                 handleAddNumberPhone();
               }}>
-              <Image source={require('../../assets/icons/greenPlus.png')} />
+              <Image source={require('../../../assets/icons/greenPlus.png')} />
             </TouchableOpacity>
-            <Text style={styles.infor2}> Thêm số điện thoại </Text>
-          </View>
-        </View>
+            <Infor2> Thêm số điện thoại </Infor2>
+          </WrapInfor3>
+        </WrapInfor2>
 
-        <View style={styles.warpInfor2}>
-          <FlatList
-            style={styles.listTextInput}
-            data={addEmail}
-            renderItem={renderItemEmail}
-          />
-          <View style={styles.warpInfor3}>
+        <WrapInfor2>
+          <ListTextInput data={addEmail} renderItem={renderItemEmail} />
+          <WrapInfor3>
             <TouchableOpacity
               onPress={() => {
                 handleAddEmail();
               }}>
-              <Image source={require('../../assets/icons/greenPlus.png')} />
+              <Image source={require('../../../assets/icons/greenPlus.png')} />
             </TouchableOpacity>
-            <Text style={styles.infor2}> Thêm email </Text>
-          </View>
-        </View>
+            <Infor2> Thêm email </Infor2>
+          </WrapInfor3>
+        </WrapInfor2>
 
-        <View style={styles.warpInfor2}>
-          <FlatList
-            style={styles.listTextInput}
-            data={addAddress}
-            renderItem={renderItemAddress}
-          />
-          <View style={styles.warpInfor3}>
+        <WrapInfor2>
+          <ListTextInput data={addAddress} renderItem={renderItemAddress} />
+          <WrapInfor3>
             <TouchableOpacity
               onPress={() => {
                 handleAddAddress();
               }}>
-              <Image source={require('../../assets/icons/greenPlus.png')} />
+              <Image source={require('../../../assets/icons/greenPlus.png')} />
             </TouchableOpacity>
-            <Text style={styles.infor2}> Thêm địa chỉ </Text>
-          </View>
-        </View>
+            <Infor2> Thêm địa chỉ </Infor2>
+          </WrapInfor3>
+        </WrapInfor2>
 
-        <View style={styles.warpInfor2}>
+        <WrapInfor2>
           {add4 === 'true' ? (
-            <View style={styles.warpInfor3}>
+            <WrapInfor3>
               <TouchableOpacity
                 onPress={() => {
                   handleAdd4('false');
                 }}>
-                <Image source={require('../../assets/icons/redMinus.png')} />
+                <Image source={require('../../../assets/icons/redMinus.png')} />
               </TouchableOpacity>
-              <TextInput
-                style={styles.textInput}
+              <Textinput
                 value={DoB}
                 onChangeText={value => handlerDoB(value)}
               />
-            </View>
+            </WrapInfor3>
           ) : (
             ''
           )}
-          <View style={styles.warpInfor3}>
+          <WrapInfor3>
             <TouchableOpacity
               onPress={() => {
                 handleAdd4('true');
               }}>
-              <Image source={require('../../assets/icons/greenPlus.png')} />
+              <Image source={require('../../../assets/icons/greenPlus.png')} />
             </TouchableOpacity>
-            <Text style={styles.infor2}> Thêm ngày sinh </Text>
-          </View>
-        </View>
+            <Infor2> Thêm ngày sinh </Infor2>
+          </WrapInfor3>
+        </WrapInfor2>
       </ScrollView>
-    </View>
+    </Background>
   );
 }
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  header: {
-    flexDirection: 'row',
-    height: 55,
-  },
-  cancelButton: {
-    justifyContent: 'center',
-    marginLeft: 12,
-  },
-  cancel: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: 20,
-  },
-  saveButton: {
-    justifyContent: 'center',
-    marginLeft: 'auto',
-    marginRight: 12,
-  },
-  save: {
-    color: '#1e62be',
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: 20,
-  },
-  scroll: {},
-  avata: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: 130,
-  },
-  avataFlex: {
-    width: 100,
-    height: 100,
-  },
-  changeAvata: {
-    marginTop: -30,
-    marginLeft: 65,
-  },
-  warpInfor1: {
-    alignItems: 'center',
-  },
-  infor1: {
-    width: '90%',
-    height: 40,
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f2f2f2',
-  },
-  warpInfor2: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  warpInfor3: {
-    width: '90%',
-    height: 45,
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#f2f2f2',
-  },
-  infor2: {
-    marginLeft: 12,
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: 14,
-    color: '#000',
-  },
-  textInput: {
-    flex: 1,
-    marginLeft: 12,
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: 14,
-    color: '#1e62be',
-  },
-  listTextInput: {
-    width: '90%',
-  },
-});

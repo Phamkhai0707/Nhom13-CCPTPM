@@ -1,5 +1,4 @@
 import {createSelector} from '@reduxjs/toolkit';
-import {useState} from 'react';
 export const inforListSelector = (state: {inforList: any}) =>
   state.contact.inforList;
 export const collectionListSelector = (state: {collectionList: any}) =>
@@ -13,7 +12,6 @@ export const contentCollectionSelector = (state: {
   contentCollectionList: any;
 }) => state.contentCollection;
 export const detailContactSelector = state => state.contact.detailContact;
-export const phoneNumberUISelector = state => state.contact.phoneNumber;
 export const titleNameSelector = state => state.collection.titleName;
 export const inforListRemainingSelector = createSelector(
   inforListSelector,

@@ -18,6 +18,27 @@ import {
   NativeBaseProvider,
   useDisclose,
 } from 'native-base';
+import {
+  Header,
+  BackButton,
+  PlusButton,
+  TitleHeader,
+  Flatlist,
+  Section,
+  Iconfolder,
+  BottomLine,
+  Name,
+  MoreOption,
+  TitleHeaderActionSheet,
+  DeleteGroup,
+  CenteredView,
+  ModalView,
+  NameModalTitle,
+  InputNameGroup,
+  CancelButton,
+  DoneButton,
+  ContentText,
+} from './CollectionStyled';
 import {useDispatch, useSelector} from 'react-redux';
 import {collectionListSelector} from '../../../Redux/Selectors';
 import {addNewCollection, editNameGroup} from '../../Redux/Actions';
@@ -76,26 +97,24 @@ export default function Collection() {
   const Item = ({item}) => {
     return (
       <View>
-        <TouchableOpacity
-          style={styles.section}
+        <Section
           onPress={() => {
             navigation.navigate('ChildCollection');
             navigateTitle(item.name);
           }}>
-          <Image style={styles.iconFolder} source={item.folderBig} />
-          <View style={styles.bottomLine}>
-            <Text style={styles.Name}>{item.name}</Text>
-            <TouchableOpacity
-              style={styles.moreOption}
+          <Iconfolder source={item.folderBig} />
+          <BottomLine>
+            <Name>{item.name}</Name>
+            <MoreOption
               onPress={() => {
                 onOpen();
                 setIdGroup(item.id);
                 handleChangeNameGroup(item.name);
               }}>
               <Image source={item.moreOption} />
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
+            </MoreOption>
+          </BottomLine>
+        </Section>
       </View>
     );
   };
@@ -111,7 +130,7 @@ export default function Collection() {
             px={3}
             justifyContent="center"
             style={styles.headerActionSheet}>
-            <Text style={styles.titleHeaderActionSheet}>Investors</Text>
+            <TitleHeaderActionSheet>Investors</TitleHeaderActionSheet>
           </Box>
           <Actionsheet.Item
             startIcon={
@@ -128,7 +147,7 @@ export default function Collection() {
               <Image source={require('../../../assets/icons/iconDelete.png')} />
             }
             onPress={() => confirm()}>
-            <Text style={styles.deleteGroup}>Delete group</Text>
+            <DeleteGroup>Delete group</DeleteGroup>
           </Actionsheet.Item>
         </Actionsheet.Content>
       </Actionsheet>
@@ -136,23 +155,18 @@ export default function Collection() {
   }
   return (
     <NativeBaseProvider>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}>
+      <Header>
+        <BackButton onPress={() => navigation.goBack()}>
           <Image source={require('../../../assets/icons/arrow.png')} />
-        </TouchableOpacity>
+        </BackButton>
         <Center>
-          <Text style={styles.titleHeader}>Collections</Text>
+          <TitleHeader>Collections</TitleHeader>
         </Center>
-        <TouchableOpacity
-          style={styles.plusButton}
-          onPress={() => setNameCollection(true)}>
+        <PlusButton onPress={() => setNameCollection(true)}>
           <Image source={require('../../../assets/icons/iconBluePlus.png')} />
-        </TouchableOpacity>
-      </View>
-      <FlatList
-        style={styles.flatList}
+        </PlusButton>
+      </Header>
+      <Flatlist
         data={collectionList}
         renderItem={renderItem}
         keyExtractor={item => item.id}
@@ -166,13 +180,12 @@ export default function Collection() {
           Alert.alert('Modal has been closed.');
           setNameCollection(false);
         }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+        <CenteredView>
+          <ModalView>
             <Center style={styles.modalTitle}>
-              <Text style={styles.nameModalTitle}>Creat group</Text>
+              <NameModalTitle>Creat group</NameModalTitle>
             </Center>
-            <TextInput
-              style={styles.inputNameGroup}
+            <InputNameGroup
               onChangeText={value => {
                 handleNameGroup(value);
               }}
@@ -180,23 +193,21 @@ export default function Collection() {
               placeholder="Add text"
             />
             <Center style={styles.buttonChose}>
-              <TouchableOpacity
-                style={styles.cancelButton}
+              <CancelButton
                 onPress={() => {
                   setNameCollection(false);
                 }}>
-                <Text style={styles.contentText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.doneButton}
+                <ContentText>Cancel</ContentText>
+              </CancelButton>
+              <DoneButton
                 onPress={() => {
                   setNameCollection(false), handleAddNewCollection();
                 }}>
-                <Text style={styles.contentText}>Done</Text>
-              </TouchableOpacity>
+                <ContentText>Done</ContentText>
+              </DoneButton>
             </Center>
-          </View>
-        </View>
+          </ModalView>
+        </CenteredView>
       </Modal>
       <Modal
         animationType="slide"
@@ -206,136 +217,43 @@ export default function Collection() {
           Alert.alert('Modal has been closed.');
           setNameCollection(false);
         }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+        <CenteredView>
+          <ModalView>
             <Center style={styles.modalTitle}>
-              <Text style={styles.nameModalTitle}>Edit name group</Text>
+              <NameModalTitle>Edit name group</NameModalTitle>
             </Center>
-            <TextInput
-              style={styles.inputNameGroup}
+            <InputNameGroup
               value={changeNameGroup}
               onChangeText={value => {
                 handleChangeNameGroup(value);
               }}
             />
             <Center style={styles.buttonChose}>
-              <TouchableOpacity
-                style={styles.cancelButton}
+              <CancelButton
                 onPress={() => {
                   setEditNameCollection(false);
                 }}>
-                <Text style={styles.contentText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.doneButton}
+                <ContentText>Cancel</ContentText>
+              </CancelButton>
+              <DoneButton
                 onPress={() => {
                   setEditNameCollection(false);
                   saveEditName(idGroup, changeNameGroup);
                 }}>
-                <Text style={styles.contentText}>Done</Text>
-              </TouchableOpacity>
+                <ContentText>Done</ContentText>
+              </DoneButton>
             </Center>
-          </View>
-        </View>
+          </ModalView>
+        </CenteredView>
       </Modal>
     </NativeBaseProvider>
   );
 }
 const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    height: 50,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderBottomColor: '#e6e6e6',
-    borderBottomWidth: 1,
-  },
-  backButton: {
-    marginLeft: 10,
-  },
-  plusButton: {
-    marginRight: 10,
-  },
-  titleHeader: {
-    position: 'absolute',
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    fontSize: 20,
-    color: '#000',
-  },
-  flatList: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  section: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    width: '100%',
-    height: 45,
-  },
-  iconFolder: {
-    marginLeft: 10,
-  },
-  bottomLine: {
-    alignItems: 'center',
-    flex: 1,
-    flexDirection: 'row',
-    marginRight: 15,
-    marginLeft: 15,
-    height: 45,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E6E6E6',
-  },
-  Name: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontSize: 17,
-    color: '#000',
-  },
-  moreOption: {
-    marginLeft: 'auto',
-  },
   headerActionSheet: {
     width: '100%',
     borderBottomColor: '#e6e6e6',
     borderBottomWidth: 1,
-  },
-  titleHeaderActionSheet: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '700',
-    fontSize: 17,
-    color: '#000',
-  },
-  deleteGroup: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: 16,
-    color: '#e22c2c',
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalView: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-    height: 172,
-    width: 300,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    alignItems: 'center',
   },
   modalTitle: {
     width: '100%',
@@ -344,21 +262,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 5,
     backgroundColor: '#1e62be',
   },
-  nameModalTitle: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    fontSize: 18,
-    color: 'white',
-  },
-  inputNameGroup: {
-    fontSize: 18,
-    fontWeight: '500',
-    height: 64,
-    width: 220,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e6e6e6',
-  },
   buttonChose: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -366,27 +269,5 @@ const styles = StyleSheet.create({
     width: 300,
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
-  },
-  cancelButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    backgroundColor: '#BDBDBD',
-    height: 36,
-    width: 86,
-  },
-  doneButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    backgroundColor: '#1e62be',
-    height: 36,
-    width: 80,
-  },
-  contentText: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    color: 'white',
   },
 });
