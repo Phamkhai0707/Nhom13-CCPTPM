@@ -1,23 +1,6 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Linking,
-} from 'react-native';
-import {
-  Infor,
-  Icon,
-  InforChil,
-  TextInfor,
-  Text2,
-  Text1,
-  Text3,
-  IconInfor,
-} from './RecentStyled';
+import {View, FlatList, Image, Linking} from 'react-native';
+import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {recentListSelector} from '../../../Redux/Selectors';
@@ -73,3 +56,49 @@ export default function Recent() {
     />
   );
 }
+const Infor = styled.TouchableOpacity`
+  flex-direction: row;
+  margin-left: 10px;
+  flex: 1;
+`;
+const Icon = styled.Image`
+  margin-top: 15px;
+`;
+const InforChil = styled.View`
+  flex-direction: row;
+  left: 13px;
+  border-bottom-color: #e6e6e6;
+  border-bottom-width: 1;
+  flex: 1;
+`;
+const TextInfor = styled.View`
+  margin-bottom: 14px;
+  left: 15px;
+`;
+const Text1 = styled.Text`
+  left: -15px;
+  margin-top: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+`;
+const Text2 = styled.Text`
+  left: -15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+`;
+const Text3 = styled.Text`
+  margin-top: 20px;
+  margin-right: 45px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+`;
+const IconInfor = styled.TouchableOpacity`
+  right: 25px;
+  margin-top: 20px;
+`;

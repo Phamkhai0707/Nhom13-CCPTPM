@@ -1,30 +1,6 @@
 import React, {useState} from 'react';
-import {
-  Image,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  TextInput,
-} from 'react-native';
-import {
-  Header,
-  BackButton,
-  TextHeader,
-  DoneButton,
-  Done,
-  IconsSearch,
-  Text1,
-  WrapSearch,
-  Search,
-  Flaslist,
-  Avata,
-  HeaderTitle,
-  Title,
-  Person,
-  InforPerson,
-  Name,
-} from './AddContactStyled';
+import {Image, Text, View, TextInput} from 'react-native';
+import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 import {AlphabetList} from 'react-native-section-alphabet-list';
 import {useDispatch, useSelector} from 'react-redux';
@@ -95,8 +71,7 @@ export default function AddContact() {
         </Search>
       </WrapSearch>
 
-      <AlphabetList
-        style={styles.sectionList}
+      <SectionList
         data={inforListRemainingInAddContact}
         keyExtractor={item => item.key}
         indexLetterStyle={{
@@ -133,8 +108,89 @@ export default function AddContact() {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  sectionList: {
-    marginTop: 10,
-  },
-});
+const SectionList = styled(AlphabetList)`
+  margin-top: 10px;
+`;
+const Header = styled.View`
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+`;
+const BackButton = styled.TouchableOpacity`
+  position: absolute;
+  margin-left: 12px;
+`;
+const TextHeader = styled.Text`
+  flex: 1;
+  text-align: center;
+  margin-left: 15px;
+  color: #333333;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+`;
+const DoneButton = styled.TouchableOpacity`
+  position: absolute;
+  margin-left: 310px;
+`;
+const Done = styled.Text`
+  color: #1e62be;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600px;
+  font-size: 18px;
+`;
+const IconsSearch = styled.Image`
+  margin-top: 14px;
+  margin-left: 10px;
+`;
+const WrapSearch = styled.View`
+  align-items: center;
+`;
+const Search = styled.View`
+  flex-direction: row;
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  width: 93%;
+  height: 45px;
+`;
+const Avata = styled.Image`
+  margin-left: 12px;
+`;
+const HeaderTitle = styled.View`
+  justify-content: center;
+  height: 40px;
+  background-color: #e0e0e0;
+`;
+const Title = styled.Text`
+  margin-left: 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 17px;
+  font-weight: 500;
+  color: #000;
+`;
+const Person = styled.TouchableOpacity`
+  margin-left: 15px;
+  align-items: center;
+  height: 90px;
+  flex-direction: row;
+  flex: 1;
+  background-color: white;
+`;
+const InforPerson = styled.View`
+  height: 90px;
+  justify-content: center;
+  border-bottom-color: #e6e6e6;
+  border-bottom-width: 1px;
+  margin-left: 15px;
+  margin-right: 20px;
+`;
+const Name = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 17px;
+  font-weight: 500;
+  color: #000;
+`;

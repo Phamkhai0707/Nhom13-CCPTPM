@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native": "^6.1.6",
@@ -21,6 +22,7 @@
     "react-native-bouncy-checkbox": "^3.0.7",
     "react-native-flipper": "^0.188.0",
     "react-native-gesture-handler": "^2.9.0",
+    "react-native-image-crop-picker": "^0.39.0",
     "react-native-reanimated": "^3.0.2",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "^3.20.0",
@@ -29,6 +31,7 @@
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
     "redux-flipper": "^2.0.2",
+    "redux-persist": "^6.0.0",
     "reselect": "^4.1.7",
     "styled-components": "^5.3.9",
     "uuid": "^9.0.0"

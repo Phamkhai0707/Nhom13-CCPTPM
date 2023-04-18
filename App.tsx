@@ -6,14 +6,8 @@
  */
 
 import * as React from 'react';
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, Image, TouchableOpacity, View} from 'react-native';
+import styled from 'styled-components';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -53,19 +47,15 @@ function BottomTab({navigation}) {
           headerShown: false,
           tabBarIcon: ({focused}) => {
             return (
-              <View style={styles.wrapFlex}>
+              <WrapFlex>
                 <Image
                   style={{tintColor: focused ? 'white' : '#65A3F8'}}
                   source={require('../SampleApp/src/assets/icons/iconTabBar3.png')}
                 />
-                <Text
-                  style={[
-                    styles.tabBarLabel,
-                    {color: focused ? 'white' : '#65A3F8'},
-                  ]}>
+                <TabBarLabel style={{color: focused ? 'white' : '#65A3F8'}}>
                   Contact
-                </Text>
-              </View>
+                </TabBarLabel>
+              </WrapFlex>
             );
           },
         }}
@@ -77,28 +67,21 @@ function BottomTab({navigation}) {
           headerLeft: () => {
             return (
               <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-                <Image
-                  style={styles.drawer}
-                  source={require('./src/assets/icons/iconMore.png')}
-                />
+                <Draw source={require('./src/assets/icons/iconMore.png')} />
               </TouchableOpacity>
             );
           },
           tabBarIcon: ({focused}) => {
             return (
-              <View style={styles.wrapFlex}>
+              <WrapFlex>
                 <Image
                   style={{tintColor: focused ? 'white' : '#65A3F8'}}
                   source={require('../SampleApp/src/assets/icons/iconTabBar4.png')}
                 />
-                <Text
-                  style={[
-                    styles.tabBarLabel,
-                    {color: focused ? 'white' : '#65A3F8'},
-                  ]}>
+                <TabBarLabel style={{color: focused ? 'white' : '#65A3F8'}}>
                   Recent
-                </Text>
-              </View>
+                </TabBarLabel>
+              </WrapFlex>
             );
           },
         }}
@@ -109,19 +92,15 @@ function BottomTab({navigation}) {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <View style={styles.wrapFlex}>
+              <WrapFlex>
                 <Image
                   style={{tintColor: focused ? 'white' : '#65A3F8'}}
                   source={require('./src/assets/icons/iconTabBar1.png')}
                 />
-                <Text
-                  style={[
-                    styles.tabBarLabel,
-                    {color: focused ? 'white' : '#65A3F8'},
-                  ]}>
+                <TabBarLabel style={{color: focused ? 'white' : '#65A3F8'}}>
                   Scan card
-                </Text>
-              </View>
+                </TabBarLabel>
+              </WrapFlex>
             );
           },
         }}
@@ -133,19 +112,15 @@ function BottomTab({navigation}) {
           headerShown: false,
           tabBarIcon: ({focused}) => {
             return (
-              <View style={styles.wrapFlex}>
+              <WrapFlex>
                 <Image
                   style={{tintColor: focused ? 'white' : '#65A3F8'}}
                   source={require('../SampleApp/src/assets/icons/iconTabBar2.png')}
                 />
-                <Text
-                  style={[
-                    styles.tabBarLabel,
-                    {color: focused ? 'white' : '#65A3F8'},
-                  ]}>
+                <TabBarLabel style={{color: focused ? 'white' : '#65A3F8'}}>
                   New contact
-                </Text>
-              </View>
+                </TabBarLabel>
+              </WrapFlex>
             );
           },
         }}
@@ -161,8 +136,7 @@ function MyDrawer({navigation}) {
   };
   const Item = ({item}) => {
     return (
-      <TouchableOpacity
-        style={styles.indexing}
+      <Indexing
         onPress={() => {
           navigation.navigate('ChildCollection');
           navigateTitle(item.name);
@@ -170,8 +144,8 @@ function MyDrawer({navigation}) {
         <Image
           source={require('../SampleApp/src/assets/icons/iconFolder.png')}
         />
-        <Text style={styles.groupName}>{item.name}</Text>
-      </TouchableOpacity>
+        <GroupName>{item.name}</GroupName>
+      </Indexing>
     );
   };
   const renderItem = item => {
@@ -181,33 +155,31 @@ function MyDrawer({navigation}) {
     <Drawer.Navigator
       screenOptions={{headerShown: false}}
       drawerContent={() => (
-        <View style={styles.backgroundDrawer}>
-          <View style={styles.headerDrawer}>
-            <View style={styles.headerContent}>
+        <BackgroundDrawer>
+          <HeaderDrawer>
+            <HeaderContent>
               <Image source={require('./src/assets/images/avataDrawer.png')} />
               <View>
-                <Text style={styles.textname1}>Nguyễn Tiến Nam</Text>
-                <Text style={styles.textname2}>Admin Admin</Text>
+                <TextName1>Nguyễn Tiến Nam</TextName1>
+                <TextName2>Admin Admin</TextName2>
               </View>
-            </View>
-          </View>
-          <View style={styles.content}>
-            <TouchableOpacity style={styles.iconPlay}>
+            </HeaderContent>
+          </HeaderDrawer>
+          <Content>
+            <IconPlay>
               <Image source={require('./src/assets/icons/Play.png')} />
-            </TouchableOpacity>
-            <Text style={styles.collection}>Collection</Text>
-            <TouchableOpacity
-              style={styles.warpEdit}
-              onPress={() => navigation.navigate('Collection')}>
-              <Text style={styles.edit}>Edit</Text>
-            </TouchableOpacity>
-          </View>
+            </IconPlay>
+            <Collections>Collection</Collections>
+            <WrapEdit onPress={() => navigation.navigate('Collection')}>
+              <Edit>Edit</Edit>
+            </WrapEdit>
+          </Content>
           <FlatList
             data={collectionList}
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />
-        </View>
+        </BackgroundDrawer>
       )}>
       <Drawer.Screen name="BottomTab" component={BottomTab} />
       <Drawer.Screen name="Information" component={Information} />
@@ -222,93 +194,6 @@ function MyDrawer({navigation}) {
     </Drawer.Navigator>
   );
 }
-const styles = StyleSheet.create({
-  drawer: {
-    marginLeft: 10,
-  },
-  view: {
-    flexDirection: 'row',
-    marginRight: 10,
-  },
-  backgroundDrawer: {
-    flex: 1,
-  },
-  headerDrawer: {
-    height: '12%',
-    flexDirection: 'column-reverse',
-    backgroundColor: '#1E62BE',
-  },
-  headerContent: {
-    marginBottom: 14,
-    marginLeft: 18,
-    flexDirection: 'row',
-  },
-  textname1: {
-    marginLeft: 10,
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontSize: 16,
-    color: 'white',
-  },
-  textname2: {
-    marginLeft: 10,
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontSize: 12,
-    color: 'white',
-  },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 45,
-    width: '100%',
-    backgroundColor: '#f9f0f9',
-  },
-  iconPlay: {
-    marginLeft: 10,
-  },
-  collection: {
-    marginLeft: 12,
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontSize: 20,
-    color: '#000',
-  },
-  warpEdit: {
-    marginLeft: 'auto',
-    marginRight: 12,
-  },
-  edit: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontSize: 16,
-    color: '#1e62be',
-  },
-  indexing: {
-    flexDirection: 'row',
-    marginLeft: 15,
-    height: 45,
-    alignItems: 'center',
-  },
-  groupName: {
-    marginLeft: 15,
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontSize: 18,
-    color: '#000',
-  },
-  tabBarLabel: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: 12,
-    color: '#65A3F8',
-  },
-  wrapFlex: {
-    alignItems: 'center',
-  },
-});
-
 function App() {
   return (
     <NavigationContainer>
@@ -320,3 +205,83 @@ function App() {
   );
 }
 export default App;
+const Draw = styled.Image`
+  margin-top: 10px;
+`;
+const BackgroundDrawer = styled.View`
+  flex: 1;
+`;
+const HeaderDrawer = styled.View`
+  height: 12%;
+  flex-direction: column-reverse;
+  background-color: #1e62be;
+`;
+const HeaderContent = styled.View`
+  margin-bottom: 14px;
+  margin-left: 18px;
+  flex-direction: row;
+`;
+const TextName1 = styled.Text`
+  margin-left: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 16px;
+  color: white;
+`;
+const TextName2 = styled.Text`
+  margin-left: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 12px;
+  color: white;
+`;
+const Content = styled.View`
+  flex-direction: row;
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  background-color: #f9f0f9;
+`;
+const IconPlay = styled.TouchableOpacity`
+  margin-left: 10px;
+`;
+const Collections = styled.Text`
+  margin-left: 10px;
+  font-family: roboto;
+  font-style: normal;
+  font-size: 20px;
+  color: #000;
+`;
+const WrapEdit = styled.TouchableOpacity`
+  margin-left: auto;
+  margin-right: 12px;
+`;
+const Edit = styled.Text`
+  font-family: roboto;
+  font-style: normal;
+  font-size: 16px;
+  color: #1e62be;
+`;
+const Indexing = styled.TouchableOpacity`
+  flex-direction: row;
+  margin-left: 15px;
+  height: 45px;
+  align-items: center;
+`;
+const GroupName = styled.Text`
+  margin-left: 15px;
+  font-family: roboto;
+  font-style: normal;
+  font-size: 18px;
+  color: #000;
+`;
+const TabBarLabel = styled.Text`
+  font-family: roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  color: #000;
+`;
+const WrapFlex = styled.View`
+  align-items: center;
+`;

@@ -1,22 +1,6 @@
-import React, {useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {Image, ScrollView, TouchableOpacity} from 'react-native';
-import {
-  Background,
-  Header,
-  CancelButton,
-  Cancel,
-  SaveButton,
-  Save,
-  Avata,
-  ChangeAvata,
-  WrapInfor1,
-  WrapInfor2,
-  WrapInfor3,
-  Infor1,
-  Infor2,
-  ListPhoneNumber,
-  Textinput,
-} from './NewContactStyled';
+import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {contactSlide} from '../Contact/ContactSlide';
@@ -31,13 +15,11 @@ export default function NewContact() {
   const [batch, setBatch] = useState('');
   const [company, setCompany] = useState('');
   const [DoB, setDoB] = useState('');
+  const [indexPhone, setIndexPhone] = useState();
   const handleAddNumberPhone = () => {
     setAddNumberPhone([...addNumberPhone, '']);
   };
   const changeNumberPhone = (phone, index) => {
-    // const update = [...addNumberPhone];
-    // console.log('update', update);
-    // update[index] = phone;
     setAddNumberPhone(value => [
       ...value.map((item, i) => {
         if (index === i) {
@@ -97,6 +79,7 @@ export default function NewContact() {
     setDoB(DoB);
   };
   const renderItemPhone = ({item, index}) => {
+    setIndexPhone(index);
     return (
       <WrapInfor3>
         <TouchableOpacity
@@ -291,3 +274,83 @@ export default function NewContact() {
     </Background>
   );
 }
+const Background = styled.View`
+  flex: 1;
+  background-color: white;
+`;
+const Header = styled.View`
+  flex-direction: row;
+  height: 55px;
+`;
+const CancelButton = styled.TouchableOpacity`
+  justify-content: center;
+  margin-left: 12px;
+`;
+const Cancel = styled.Text`
+  color: #1e62be;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+`;
+const SaveButton = styled.TouchableOpacity`
+  justify-content: center;
+  margin-left: auto;
+  margin-right: 12px;
+`;
+const Save = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+`;
+const Avata = styled.View`
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 130px;
+`;
+const ChangeAvata = styled.TouchableOpacity`
+  margin-top: -30px;
+  margin-left: 65;
+`;
+const WrapInfor1 = styled.View`
+  align-items: center;
+`;
+const Infor1 = styled.TextInput`
+  width: 90%;
+  height: 40px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  border-bottom-width: 1;
+  border-bottom-color: #f2f2f2;
+`;
+const WrapInfor2 = styled.View`
+  margin-top: 15px;
+  align-items: center;
+`;
+const WrapInfor3 = styled.View`
+  width: 90%;
+  height: 45px;
+  align-items: center;
+  flex-direction: row;
+  border-bottom-width: 1px;
+  border-bottom-color: #f2f2f2;
+`;
+const Infor2 = styled.Text`
+  margin-left: 12px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #000;
+`;
+const ListPhoneNumber = styled.FlatList`
+  width: 90%;
+`;
+const Textinput = styled.TextInput`
+  flex: 1;
+  margin-left: 12px;
+`;

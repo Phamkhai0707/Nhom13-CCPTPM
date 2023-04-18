@@ -8,28 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import {
-  Header,
-  BackButton,
-  EditButton,
-  TextEdit,
-  BoxAvata,
-  ChangeAvata,
-  Text5,
-  Text2,
-  Text3,
-  Text4,
-  Text1,
-  TextDelete,
-  Avata,
-  Feature,
-  AloneFeature,
-  Infor,
-  Box3,
-  Box2,
-  Box1,
-  Note,
-} from './InformationStyled';
+import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {detailContactSelector} from '../../../Redux/Selectors';
@@ -163,3 +142,117 @@ export default function Information() {
     </TouchableWithoutFeedback>
   );
 }
+const Header = styled.View`
+  width: 100%;
+  height: 45px;
+  background-color: #f3f7fb;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
+const BackButton = styled.TouchableOpacity`
+  margin-left: 10px;
+`;
+const EditButton = styled.TouchableOpacity`
+  margin-right: 10px;
+`;
+const TextEdit = styled.Text`
+  font-family: roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  color: #1e62be;
+`;
+const BoxAvata = styled.View`
+  align-items: center;
+  background-color: #f3f7fb;
+`;
+const Avata = styled.Image`
+  margin-top: 20px;
+  width: 100px;
+  height: 100px;
+`;
+const ChangeAvata = styled.TouchableOpacity`
+  top: -28px;
+  left: 30px;
+`;
+const Text1 = styled.Text`
+  top: -10px;
+  color: #000;
+  font-family: roboto;
+  font-style: normal;
+  font-size: 19px;
+  font-weight: 800;
+`;
+const Text2 = styled.Text`
+  top: -10px;
+  font-family: Roboto;
+  font-style: normal;
+`;
+const Feature = styled.View`
+  margin-top: 10px;
+  flex-direction: row;
+`;
+const AloneFeature = styled.View`
+  margin-horizontal: 15px;
+  align-items: center;
+`;
+const Text3 = styled.Text`
+  margin-top: 8px;
+  margin-bottom: 15px;
+  color: #1e62be;
+  font-family: roboto;
+  font-style: normal;
+  font-size: 12px;
+`;
+const Infor = styled.View`
+  align-items: center;
+  height: 100%;
+  background-color: white;
+`;
+const Text4 = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 14px;
+  color: #000;
+`;
+const Text5 = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 20px;
+  color: #1e62be;
+`;
+const Box1 = styled.TouchableOpacity`
+  justify-content: space-evenly;
+  width: 90%;
+  height: 70px;
+  border-bottom-width: 1px;
+  border-bottom-color: #f2f2f2;
+`;
+const Box2 = styled.TouchableOpacity`
+  justify-content: space-evenly;
+  width: 90%;
+  height: 80px;
+  border-bottom-width: 1px;
+  border-bottom-color: #f2f2f2;
+`;
+const Note = styled.TextInput`
+  margin-top: 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 14px;
+  color: #000;
+`;
+const Box3 = styled.TouchableOpacity`
+  justify-content: space-evenly;
+  width: 90%;
+  height: 45px;
+  border-bottom-width: 1px;
+  border-bottom-color: #f2f2f2;
+`;
+const TextDelete = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 14px;
+  color: #ff4a4a;
+`;

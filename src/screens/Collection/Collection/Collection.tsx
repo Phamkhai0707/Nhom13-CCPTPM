@@ -1,15 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  Alert,
-  Modal,
-  TextInput,
-} from 'react-native';
+import {View, Image, StyleSheet, Alert, Modal} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {
   Actionsheet,
@@ -18,30 +8,9 @@ import {
   NativeBaseProvider,
   useDisclose,
 } from 'native-base';
-import {
-  Header,
-  BackButton,
-  PlusButton,
-  TitleHeader,
-  Flatlist,
-  Section,
-  Iconfolder,
-  BottomLine,
-  Name,
-  MoreOption,
-  TitleHeaderActionSheet,
-  DeleteGroup,
-  CenteredView,
-  ModalView,
-  NameModalTitle,
-  InputNameGroup,
-  CancelButton,
-  DoneButton,
-  ContentText,
-} from './CollectionStyled';
+import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
 import {collectionListSelector} from '../../../Redux/Selectors';
-import {addNewCollection, editNameGroup} from '../../Redux/Actions';
 import {collectionSlide} from './CollectionSlide';
 export default function Collection() {
   const {isOpen, onOpen, onClose} = useDisclose();
@@ -125,13 +94,9 @@ export default function Collection() {
     return (
       <Actionsheet isOpen={isOpen} onClose={onClose} hideDragIndicator>
         <Actionsheet.Content borderTopRadius="6">
-          <Box
-            h={10}
-            px={3}
-            justifyContent="center"
-            style={styles.headerActionSheet}>
+          <HeaderActionSheet h={10} px={3} justifyContent="center">
             <TitleHeaderActionSheet>Investors</TitleHeaderActionSheet>
-          </Box>
+          </HeaderActionSheet>
           <Actionsheet.Item
             startIcon={
               <Image source={require('../../../assets/icons/iconEdit.png')} />
@@ -182,9 +147,9 @@ export default function Collection() {
         }}>
         <CenteredView>
           <ModalView>
-            <Center style={styles.modalTitle}>
+            <ModalTitle>
               <NameModalTitle>Creat group</NameModalTitle>
-            </Center>
+            </ModalTitle>
             <InputNameGroup
               onChangeText={value => {
                 handleNameGroup(value);
@@ -192,7 +157,7 @@ export default function Collection() {
               value={nameGroup}
               placeholder="Add text"
             />
-            <Center style={styles.buttonChose}>
+            <ButtonChose>
               <CancelButton
                 onPress={() => {
                   setNameCollection(false);
@@ -205,7 +170,7 @@ export default function Collection() {
                 }}>
                 <ContentText>Done</ContentText>
               </DoneButton>
-            </Center>
+            </ButtonChose>
           </ModalView>
         </CenteredView>
       </Modal>
@@ -219,16 +184,16 @@ export default function Collection() {
         }}>
         <CenteredView>
           <ModalView>
-            <Center style={styles.modalTitle}>
+            <ModalTitle>
               <NameModalTitle>Edit name group</NameModalTitle>
-            </Center>
+            </ModalTitle>
             <InputNameGroup
               value={changeNameGroup}
               onChangeText={value => {
                 handleChangeNameGroup(value);
               }}
             />
-            <Center style={styles.buttonChose}>
+            <ButtonChose>
               <CancelButton
                 onPress={() => {
                   setEditNameCollection(false);
@@ -242,32 +207,154 @@ export default function Collection() {
                 }}>
                 <ContentText>Done</ContentText>
               </DoneButton>
-            </Center>
+            </ButtonChose>
           </ModalView>
         </CenteredView>
       </Modal>
     </NativeBaseProvider>
   );
 }
-const styles = StyleSheet.create({
-  headerActionSheet: {
-    width: '100%',
-    borderBottomColor: '#e6e6e6',
-    borderBottomWidth: 1,
-  },
-  modalTitle: {
-    width: '100%',
-    height: 44,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    backgroundColor: '#1e62be',
-  },
-  buttonChose: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    height: 64,
-    width: 300,
-    borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 5,
-  },
-});
+const ButtonChose = styled(Center)`
+  flex-direction: row;
+  justify-content: space-around;
+  height: 64px;
+  width: 300px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+`;
+const ModalTitle = styled(Center)`
+  width: 300px;
+  height: 44px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: #1e62be;
+`;
+const HeaderActionSheet = styled(Box)`
+  width: 100%;
+  border-bottom-color: #e6e6e6;
+  border-bottom-width: 1px;
+`;
+const Header = styled.View`
+  width: 100%;
+  height: 50px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-bottom-color: #e6e6e6;
+  border-bottom-width: 1px;
+`;
+const BackButton = styled.TouchableOpacity`
+  margin-left: 10px;
+`;
+const PlusButton = styled.TouchableOpacity`
+  margin-right: 10px;
+`;
+const TitleHeader = styled.Text`
+  position: absolute;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20;
+  color: #000;
+`;
+const Flatlist = styled.FlatList`
+  flex: 1;
+  background-color: white;
+`;
+const Section = styled.TouchableOpacity`
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: 45px;
+`;
+const Iconfolder = styled.Image`
+  margin-left: 10px;
+`;
+const BottomLine = styled.View`
+  align-items: center;
+  flex: 1;
+  flex-direction: row;
+  margin-right: 15px;
+  margin-left: 15px;
+  height: 45px;
+  border-bottom-width: 1px;
+  border-bottom-color: #e6e6e6;
+`;
+const Name = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 17px;
+  color: #000;
+`;
+const MoreOption = styled.TouchableOpacity`
+  margin-left: auto;
+`;
+const TitleHeaderActionSheet = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  color: #000;
+`;
+const DeleteGroup = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #e22c2c;
+`;
+const CenteredView = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+const ModalView = styled.View`
+  background-color: white;
+  border-radius: 5px;
+  border-color: #ddd;
+  border-bottom-width: 0;
+  shadow-color: #000;
+  shadow-offset: {width: 0, height: 2px};
+  shadow-opacity: 0.25;
+  shadow-radius: 4;
+  elevation: 5;
+  align-items: center;
+`;
+const NameModalTitle = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+`;
+const InputNameGroup = styled.TextInput`
+  font-size: 18px;
+  font-weight: 500;
+  height: 64px;
+  width: 220px;
+  border-bottom-width: 1px;
+  border-bottom-color: #e6e6e6;
+`;
+const CancelButton = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #bdbdbd;
+  height: 36px;
+  width: 86px;
+`;
+const DoneButton = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #1e62be;
+  height: 36px;
+  width: 80px;
+`;
+const ContentText = styled.Text`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  color: white;
+`;
