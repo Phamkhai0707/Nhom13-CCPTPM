@@ -1,47 +1,49 @@
-import React from 'react';
-import styled from 'styled-components';
-import {View, Image} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import React from "react";
+import styled from "styled-components";
+import { Image } from "react-native";
+// import {useNavigation} from '@react-navigation/native';
 export default function Login() {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   return (
-    <View>
+    <WrapScreen>
       <Logo1>
-        <Image source={require('../../assets/images/logo1.png')} />
+        <Image source={require("../../assets/images/logo1.png")} />
       </Logo1>
       <Logo2>
-        <Image source={require('../../assets/images/logo2.png')} />
+        <Image source={require("../../assets/images/logo2.png")} />
       </Logo2>
-      <Text1>Base Contact</Text1>
+      <Text1>Group 13</Text1>
       <Text2>
-        Giải pháp quản lý công việc & dự án toàn diện cho doanh nghiệp 4.0
+        Ứng dụng liên lạc & chats dành cho sinh viên
       </Text2>
       <IconLoading>
-        <Image source={require('../../assets/icons/iconLoading.png')} />
+        <Image source={require("../../assets/icons/iconLoading.png")} />
       </IconLoading>
       <Text3>Bạn chưa đăng nhập</Text3>
-      <Button1 onPress={() => navigation.navigate('MyDrawer')}>
-        <Text4>ĐĂNG NHẬP BẰNG BASE ACCOUNT</Text4>
+      <Button1>
+        <Text4>ĐĂNG NHẬP</Text4>
       </Button1>
-      <Button2 onPress={() => navigation.navigate('MyDrawer')}>
-        <Text5>ĐĂNG NHẬP THỦ CÔNG</Text5>
+      <Button2>
+        <Text5>ĐĂNG KÝ</Text5>
       </Button2>
-    </View>
+    </WrapScreen>
   );
 }
+const WrapScreen = styled.View`
+  align-items: center;
+`;
 const Logo1 = styled.View`
   top: 50px;
-  left: 99px;
 `;
-const Logo2 = styled.Text`
-  top: -95px;
-  left: 15px;
+const Logo2 = styled.View`
+  position: absolute;
+  top: 100px;
 `;
 const Text1 = styled.Text`
   position: absolute;
+  text-align: center;
   width: 182px;
   height: 35px;
-  left: 104px;
   top: 356px;
   color: rgba(30, 98, 190, 1);
   font-family: roboto;
@@ -54,7 +56,6 @@ const Text2 = styled.Text`
   position: absolute;
   width: 268px;
   height: 36px;
-  left: 60px;
   top: 398px;
   font-family: roboto;
   font-style: normal;
@@ -65,14 +66,12 @@ const Text2 = styled.Text`
   color: #333333;
 `;
 const IconLoading = styled.View`
-  top: 90px;
-  left: 185px;
+  top: 300px;
 `;
 const Text3 = styled.Text`
   position: absolute;
   width: 140px;
   height: 20px;
-  left: 132px;
   top: 560px;
   font-family: roboto;
   font-style: italic;
@@ -86,7 +85,6 @@ const Button1 = styled.TouchableOpacity`
   position: absolute;
   width: 300px;
   height: 48px;
-  left: 48px;
   top: 605px;
   align-items: center;
   padding: 10px;
@@ -108,7 +106,6 @@ const Button2 = styled.TouchableOpacity`
   position: absolute;
   width: 300px;
   height: 48px;
-  left: 48px;
   top: 668px;
   align-items: center;
   background-color: white;
