@@ -10,6 +10,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {contactSlide} from '../../Home/Contact/ContactSlide';
 import {contentCollectionSlide} from './ContentCollectionSlide';
+import { IC_ADDCONTACT, IC_ARROW, IC_CHECKBOXFALSE, IC_CHECKBOXTRUE, IC_EDITNAME } from '../../../assets/type';
 export default function ChildCollection() {
   const title = useSelector(titleNameSelector);
   const navigation = useNavigation();
@@ -59,11 +60,11 @@ export default function ChildCollection() {
           {editName === true ? (
             isChecked(item.id) ? (
               <Image
-                source={require('../../../assets/icons/checkBoxTrue.png')}
+                source={IC_CHECKBOXTRUE}
               />
             ) : (
               <Image
-                source={require('../../../assets/icons/checkBoxfalse.png')}
+                source={IC_CHECKBOXFALSE}
               />
             )
           ) : (
@@ -89,7 +90,7 @@ export default function ChildCollection() {
             setStatusEditName(false);
             setCheckedList([]);
           }}>
-          <Image source={require('../../../assets/icons/arrow.png')} />
+          <Image source={IC_ARROW} />
         </BackButton>
         {editName === true ? (
           <DeleteButton
@@ -118,7 +119,7 @@ export default function ChildCollection() {
             setStatusEditName(false);
             setCheckedList([]);
           }}>
-          <Image source={require('../../../assets/icons/Addcontact.png')} />
+          <Image source={IC_ADDCONTACT} />
           <TextBottomButton>Add contact</TextBottomButton>
         </ValueBottomButton>
         <ValueBottomButton
@@ -126,7 +127,7 @@ export default function ChildCollection() {
             setStatusEditName(!editName);
             setCheckedList([]);
           }}>
-          <Image source={require('../../../assets/icons/editName.png')} />
+          <Image source={IC_EDITNAME} />
           <TextBottomButton>Edit name</TextBottomButton>
         </ValueBottomButton>
       </BottomButton>

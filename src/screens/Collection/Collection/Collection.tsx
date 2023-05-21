@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
 import {collectionListSelector} from '../../../Redux/Selectors';
 import {collectionSlide} from './CollectionSlide';
+import { IC_ARROW, IC_BLUEPLUS, IC_DELETE, IC_EDIT, IC_FORDERBIG, IC_MOREOPTION } from '../../../assets/type';
 export default function Collection() {
   const {isOpen, onOpen, onClose} = useDisclose();
   const [nameCollection, setNameCollection] = useState(false);
@@ -33,8 +34,8 @@ export default function Collection() {
       collectionSlide.actions.addCollection({
         id: Date.now(),
         name: nameGroup,
-        folderBig: require('../../../assets/icons/iconFolderBig.png'),
-        moreOption: require('../../../assets/icons/moreOption.png'),
+        folderBig: IC_FORDERBIG,
+        moreOption: IC_MOREOPTION,
       }),
     );
   };
@@ -99,7 +100,7 @@ export default function Collection() {
           </HeaderActionSheet>
           <Actionsheet.Item
             startIcon={
-              <Image source={require('../../../assets/icons/iconEdit.png')} />
+              <Image source={IC_EDIT} />
             }
             onPress={() => {
               setEditNameCollection(true);
@@ -109,7 +110,7 @@ export default function Collection() {
           </Actionsheet.Item>
           <Actionsheet.Item
             startIcon={
-              <Image source={require('../../../assets/icons/iconDelete.png')} />
+              <Image source={IC_DELETE} />
             }
             onPress={() => confirm()}>
             <DeleteGroup>Delete group</DeleteGroup>
@@ -122,13 +123,13 @@ export default function Collection() {
     <NativeBaseProvider>
       <Header>
         <BackButton onPress={() => navigation.goBack()}>
-          <Image source={require('../../../assets/icons/arrow.png')} />
+          <Image source={IC_ARROW} />
         </BackButton>
         <Center>
           <TitleHeader>Collections</TitleHeader>
         </Center>
         <PlusButton onPress={() => setNameCollection(true)}>
-          <Image source={require('../../../assets/icons/iconBluePlus.png')} />
+          <Image source={IC_BLUEPLUS} />
         </PlusButton>
       </Header>
       <Flatlist

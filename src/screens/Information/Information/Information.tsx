@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {detailContactSelector} from '../../../Redux/Selectors';
 import {contactSlide} from '../../Home/Contact/ContactSlide';
+import { IC_ARROW, IC_CHANGEAVATAR, IC_FEATURE1, IC_FEATURE2, IC_FEATURE3, IC_FEATURE4 } from '../../../assets/type';
 
 export default function Information() {
   const navigation = useNavigation();
@@ -44,7 +45,7 @@ export default function Information() {
       <View>
         <Header>
           <BackButton onPress={() => navigation.goBack()}>
-            <Image source={require('../../../assets/icons/arrow.png')} />
+            <Image source={IC_ARROW} />
           </BackButton>
           <EditButton onPress={() => navigation.navigate('EditInformation')}>
             <TextEdit> Edit </TextEdit>
@@ -55,7 +56,7 @@ export default function Information() {
             <Avata source={detailContact.imageAvata} />
           </TouchableOpacity>
           <ChangeAvata>
-            <Image source={require('../../../assets/icons/changeAvatar.png')} />
+            <Image source={IC_CHANGEAVATAR} />
           </ChangeAvata>
           <Text1>{detailContact.fullName}</Text1>
           <Text2>{detailContact.company}</Text2>
@@ -68,7 +69,7 @@ export default function Information() {
                   )
                 }>
                 <Image
-                  source={require('../../../assets/icons/iconFeature1.png')}
+                  source={IC_FEATURE1}
                 />
               </TouchableOpacity>
               <Text3>Call</Text3>
@@ -81,7 +82,7 @@ export default function Information() {
                   )
                 }>
                 <Image
-                  source={require('../../../assets/icons/iconFeature2.png')}
+                  source={IC_FEATURE2}
                 />
               </TouchableOpacity>
               <Text3>Messenger</Text3>
@@ -90,7 +91,7 @@ export default function Information() {
               <TouchableOpacity
                 onPress={() => Linking.openURL('https://www.google.com/')}>
                 <Image
-                  source={require('../../../assets/icons/iconFeature3.png')}
+                  source={IC_FEATURE3}
                 />
               </TouchableOpacity>
               <Text3>Website</Text3>
@@ -101,7 +102,7 @@ export default function Information() {
                   Linking.openURL(`mailto:${detailContact.email}`)
                 }>
                 <Image
-                  source={require('../../../assets/icons/iconFeature4.png')}
+                  source={IC_FEATURE4}
                 />
               </TouchableOpacity>
               <Text3>Sent Email</Text3>
