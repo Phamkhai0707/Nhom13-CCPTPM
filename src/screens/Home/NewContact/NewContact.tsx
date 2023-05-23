@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {contactSlide} from '../Contact/ContactSlide';
+import { IC_CHANGEAVATAR, IC_GREENPLUS, IC_REDMIMUS, IM_AVATAR01, IM_DEFAULTAVATAR, IM_PER2 } from '../../../assets/type';
 export default function NewContact() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -86,7 +87,7 @@ export default function NewContact() {
           onPress={() => {
             deletePhoneNumber(index);
           }}>
-          <Image source={require('../../../assets/icons/redMinus.png')} />
+          <Image source={IC_REDMIMUS} />
         </TouchableOpacity>
         <Textinput
           keyboardType={'numeric'}
@@ -105,7 +106,7 @@ export default function NewContact() {
           onPress={() => {
             deleteEmail(index);
           }}>
-          <Image source={require('../../../assets/icons/redMinus.png')} />
+          <Image source={IC_REDMIMUS} />
         </TouchableOpacity>
         <Textinput
           value={item}
@@ -123,7 +124,7 @@ export default function NewContact() {
           onPress={() => {
             deleteAddress(index);
           }}>
-          <Image source={require('../../../assets/icons/redMinus.png')} />
+          <Image source={IC_REDMIMUS} />
         </TouchableOpacity>
         <Textinput
           value={item}
@@ -155,8 +156,8 @@ export default function NewContact() {
         email: addEmail,
         address: addAddress,
         DoB: DoB,
-        image: require('../../../assets/images/per1.png'),
-        imageAvata: require('../../../assets/images/avatar01.png'),
+        image: IM_PER1,
+        imageAvata: IM_AVATAR01,
       }),
     );
   };
@@ -179,11 +180,11 @@ export default function NewContact() {
         <Avata>
           <TouchableOpacity>
             <Image
-              source={require('../../../assets/images/defaultAvata.png')}
+              source={IM_DEFAULTAVATAR}
             />
           </TouchableOpacity>
           <ChangeAvata>
-            <Image source={require('../../../assets/icons/changeAvatar.png')} />
+            <Image source={IC_CHANGEAVATAR} />
           </ChangeAvata>
         </Avata>
         <WrapInfor1>
@@ -211,7 +212,7 @@ export default function NewContact() {
               onPress={() => {
                 handleAddNumberPhone();
               }}>
-              <Image source={require('../../../assets/icons/greenPlus.png')} />
+              <Image source={IC_GREENPLUS} />
             </TouchableOpacity>
             <Infor2> Thêm số điện thoại </Infor2>
           </WrapInfor3>
@@ -224,7 +225,7 @@ export default function NewContact() {
               onPress={() => {
                 handleAddEmail();
               }}>
-              <Image source={require('../../../assets/icons/greenPlus.png')} />
+              <Image source={IC_GREENPLUS} />
             </TouchableOpacity>
             <Infor2> Thêm email </Infor2>
           </WrapInfor3>
@@ -237,7 +238,7 @@ export default function NewContact() {
               onPress={() => {
                 handleAddAddress();
               }}>
-              <Image source={require('../../../assets/icons/greenPlus.png')} />
+              <Image source={IC_GREENPLUS} />
             </TouchableOpacity>
             <Infor2> Thêm địa chỉ </Infor2>
           </WrapInfor3>
@@ -250,7 +251,7 @@ export default function NewContact() {
                 onPress={() => {
                   handleAdd4('false');
                 }}>
-                <Image source={require('../../../assets/icons/redMinus.png')} />
+                <Image source={IC_REDMIMUS} />
               </TouchableOpacity>
               <Textinput
                 value={DoB}
@@ -265,7 +266,7 @@ export default function NewContact() {
               onPress={() => {
                 handleAdd4('true');
               }}>
-              <Image source={require('../../../assets/icons/greenPlus.png')} />
+              <Image source={IC_GREENPLUS} />
             </TouchableOpacity>
             <Infor2> Thêm ngày sinh </Infor2>
           </WrapInfor3>

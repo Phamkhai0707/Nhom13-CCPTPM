@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { IC_FORDERBIG, IC_MOREOPTION } from '../../../assets/type';
 export const collectionSlide = createSlice({
   name: 'collectionList',
   initialState: {
@@ -7,32 +8,32 @@ export const collectionSlide = createSlice({
       {
         id: 1,
         name: 'All',
-        folderBig: require('../../../assets/icons/iconFolderBig.png'),
-        moreOption: require('../../../assets/icons/moreOption.png'),
+        folderBig: IC_FORDERBIG,
+        moreOption: IC_MOREOPTION,
       },
       {
         id: 2,
         name: 'General',
-        folderBig: require('../../../assets/icons/iconFolderBig.png'),
-        moreOption: require('../../../assets/icons/moreOption.png'),
+        folderBig: IC_FORDERBIG,
+        moreOption: IC_MOREOPTION,
       },
       {
         id: 3,
         name: 'Investors',
-        folderBig: require('../../../assets/icons/iconFolderBig.png'),
-        moreOption: require('../../../assets/icons/moreOption.png'),
+        folderBig: IC_FORDERBIG,
+        moreOption: IC_MOREOPTION,
       },
       {
         id: 4,
         name: 'Lead',
-        folderBig: require('../../../assets/icons/iconFolderBig.png'),
-        moreOption: require('../../../assets/icons/moreOption.png'),
+        folderBig: IC_FORDERBIG,
+        moreOption: IC_MOREOPTION,
       },
       {
         id: 5,
         name: 'VIP',
-        folderBig: require('../../../assets/icons/iconFolderBig.png'),
-        moreOption: require('../../../assets/icons/moreOption.png'),
+        folderBig: IC_FORDERBIG,
+        moreOption: IC_MOREOPTION,
       },
     ],
   },

@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { IM_AVATAR01, IM_AVATAR02, IM_AVATAR03, IM_AVATAR04, IM_AVATAR05, IM_AVATAR06, IM_AVATAR07, IM_PER1, IM_PER2 } from '../../../assets/type';
 export const contentCollectionSlide = createSlice({
   name: 'contentCollectionList',
   initialState: [
@@ -13,8 +14,8 @@ export const contentCollectionSlide = createSlice({
       email: 'basenamnt@gmail.com',
       address: 'Số 12, Khuất Duy Tiến, Thanh Xuân, Hà Nội',
       DoB: '26-10-1993',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar01.png'),
+      image: IM_PER1,
+      imageAvata: IM_AVATAR01,
     },
     {
       id: 2,
@@ -27,8 +28,8 @@ export const contentCollectionSlide = createSlice({
       value: 'Dương Lê',
       phone: '0977272123',
       company: 'Techcombank',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar01.png'),
+      image: IM_PER2,
+      imageAvata: IM_AVATAR01,
     },
     {
       id: 3,
@@ -41,8 +42,8 @@ export const contentCollectionSlide = createSlice({
       note: '',
       phone: '0977272123',
       company: 'Techcombank',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar02.png'),
+      image: IM_PER1,
+      imageAvata: IM_AVATAR02,
     },
     {
       id: 4,
@@ -55,8 +56,8 @@ export const contentCollectionSlide = createSlice({
       fullName: 'Hồng Đăng',
       value: 'Hồng Đăng',
       company: 'OTP',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar03.png'),
+      image: IM_PER1,
+      imageAvata: IM_AVATAR03,
     },
     {
       id: 5,
@@ -69,8 +70,8 @@ export const contentCollectionSlide = createSlice({
       fullName: 'Nguyễn Tiến Nam',
       value: 'Nguyễn Tiến Nam',
       company: 'Techcombank',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar04.png'),
+      image: IM_PER1,
+      imageAvata: IM_AVATAR04,
     },
     {
       id: 6,
@@ -83,8 +84,8 @@ export const contentCollectionSlide = createSlice({
       fullName: 'Bảo Ngọc',
       value: 'Bảo Ngọc',
       company: 'Techcombank',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar05.png'),
+      image: IM_PER1,
+      imageAvata: IM_AVATAR05,
     },
     {
       id: 7,
@@ -97,8 +98,8 @@ export const contentCollectionSlide = createSlice({
       fullName: 'Thái Thùy Trang',
       value: 'Thái Thùy Trang',
       company: 'Techcombank',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar06.png'),
+      image: IM_PER1,
+      imageAvata: IM_AVATAR06,
     },
     {
       id: 8,
@@ -111,8 +112,8 @@ export const contentCollectionSlide = createSlice({
       fullName: 'Lê Ngọc Linh',
       value: 'Lê Ngọc Linh',
       company: 'Techcombank',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar07.png'),
+      image: IM_PER1,
+      imageAvata: IM_AVATAR07,
     },
     {
       id: 9,
@@ -125,8 +126,8 @@ export const contentCollectionSlide = createSlice({
       fullName: 'Trần Thái Hà',
       value: 'Trần Thái Hà',
       company: 'Techcombank',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar01.png'),
+      image: IM_PER1,
+      imageAvata: IM_AVATAR01,
     },
     {
       id: 10,
@@ -139,8 +140,8 @@ export const contentCollectionSlide = createSlice({
       fullName: 'Nguyễn Tiến Nam',
       value: 'Nguyễn Tiến Nam',
       company: 'Techcombank',
-      image: require('../../../assets/images/per1.png'),
-      imageAvata: require('../../../assets/images/avatar02.png'),
+      image: IM_PER1,
+      imageAvata: IM_AVATAR02,
     },
   ],
   reducers: {

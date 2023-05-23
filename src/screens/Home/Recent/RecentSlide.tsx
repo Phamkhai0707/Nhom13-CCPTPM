@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { IC_INFOR, IC_PHONE1, IC_PHONE2 } from '../../../assets/type';
 export const recentSlide = createSlice({
   name: 'recentList',
   initialState: [
@@ -8,8 +9,8 @@ export const recentSlide = createSlice({
       sdt: '0977272123',
       missing: false,
       time: 'Hôm nay',
-      icon: require('../../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      icon: IC_PHONE1,
+      iconInfor: IC_INFOR,
     },
     {
       id: 2,
@@ -17,8 +18,8 @@ export const recentSlide = createSlice({
       sdt: '0977272123',
       missing: false,
       time: 'Hôm nay',
-      icon: require('../../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      icon: IC_PHONE1,
+      iconInfor: IC_INFOR,
     },
     {
       id: 3,
@@ -26,8 +27,8 @@ export const recentSlide = createSlice({
       sdt: '0977272123',
       missing: false,
       time: 'Hôm nay',
-      icon: require('../../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      icon: IC_PHONE1,
+      iconInfor: IC_INFOR,
     },
     {
       id: 4,
@@ -35,7 +36,7 @@ export const recentSlide = createSlice({
       missing: true,
       sdt: '0977272123',
       time: 'Thứ Tư',
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      iconInfor: IC_INFOR,
     },
     {
       id: 5,
@@ -43,7 +44,7 @@ export const recentSlide = createSlice({
       missing: true,
       sdt: '0977272123',
       time: 'Thứ Tư',
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      iconInfor: IC_INFOR,
     },
     {
       id: 6,
@@ -51,8 +52,8 @@ export const recentSlide = createSlice({
       sdt: '0977272123',
       missing: false,
       time: 'Thứ Ba',
-      icon: require('../../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      icon: IC_PHONE1,
+      iconInfor: IC_INFOR,
     },
     {
       id: 7,
@@ -60,8 +61,8 @@ export const recentSlide = createSlice({
       sdt: '0977272123',
       missing: false,
       time: 'Thứ Hai',
-      icon: require('../../../assets/icons/iconPhone1.png'),
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      icon: IC_PHONE1,
+      iconInfor: IC_INFOR,
     },
     {
       id: 8,
@@ -69,8 +70,8 @@ export const recentSlide = createSlice({
       sdt: '0977272123',
       missing: false,
       time: 'Thứ Hai',
-      icon: require('../../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      icon: IC_PHONE2,
+      iconInfor: IC_INFOR,
     },
     {
       id: 9,
@@ -78,8 +79,8 @@ export const recentSlide = createSlice({
       sdt: '0977272123',
       missing: false,
       time: 'Thứ Bảy',
-      icon: require('../../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      icon: IC_PHONE2,
+      iconInfor: IC_INFOR,
     },
     {
       id: 10,
@@ -87,8 +88,8 @@ export const recentSlide = createSlice({
       sdt: '0977272123',
       missing: false,
       time: 'Thứ Hai',
-      icon: require('../../../assets/icons/iconPhone2.png'),
-      iconInfor: require('../../../assets/icons/iconInfor.png'),
+      icon: IC_PHONE2,
+      iconInfor: IC_INFOR,
     },
   ],
   reducers: {},

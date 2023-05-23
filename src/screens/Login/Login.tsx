@@ -2,20 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import {View, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import { IM_LOGO1, IM_LOGO2 } from '../../assets/type';
 export default function Login() {
   const navigation = useNavigation();
   return (
     <WrapScreen>
       <Logo1>
-        <Image source={require('../../assets/images/logo1.png')} />
+        <Image source={IM_LOGO1} />
       </Logo1>
       <Logo2>
-        <Image source={require('../../assets/images/logo2.png')} />
+        <Image source={IM_LOGO2} />
       </Logo2>
       <Text1>Group 13</Text1>
       <Text2>Ứng dụng liên lạc & chats dành cho sinh viên</Text2>
       <IconLoading>
-        <Image source={require('../../assets/icons/iconLoading.png')} />
+        <Image source={IC_LOADING} />
       </IconLoading>
       <Text3>Bạn chưa đăng nhập</Text3>
       <Button1 onPress={() => navigation.navigate('MyDrawer')}>

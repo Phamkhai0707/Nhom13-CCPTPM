@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {inforListRemainingSelector} from '../../../Redux/Selectors';
 import {contactSlide} from './ContactSlide';
 import styled from 'styled-components';
+import { IC_FILTER1, IC_MORE, IC_SEARCH, IC_VIEWLIST, IC_VIEWMODUL, IM_PER1 } from '../../../assets/type';
 export default function Contact() {
   const navigation = useNavigation();
   const [searchContact, setSearchContact] = useState('');
@@ -42,7 +43,7 @@ export default function Contact() {
           navigation.navigate('Information');
           contactDetail(item);
         }}>
-        <ImageInfor source={require('../../../assets/images/per1.png')} />
+        <ImageInfor source={IM_PER1} />
         <Infor1>{item.fullName}</Infor1>
         <Infor2>{item.company}</Infor2>
       </Box>
@@ -56,7 +57,7 @@ export default function Contact() {
       <View style={{backgroundColor: 'white', flex: 1}}>
         <Header>
           <IconMore onPress={() => navigation.toggleDrawer('MyDrawer')}>
-            <Image source={require('../../../assets/icons/iconMore.png')} />
+            <Image source={IC_MORE} />
           </IconMore>
           <TextHeader> All contacts </TextHeader>
           <WrapView>
@@ -69,7 +70,7 @@ export default function Contact() {
                   tintColor:
                     changeView === 'activeModul' ? '#1e62be' : '#757575',
                 }}
-                source={require('../../../assets/icons/viewModul.png')}
+                source={IC_VIEWMODUL}
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -81,7 +82,7 @@ export default function Contact() {
                   tintColor:
                     changeView === 'activeList' ? '#1e62be' : '#757575',
                 }}
-                source={require('../../../assets/icons/viewList.png')}
+                source={IC_VIEWLIST}
               />
             </TouchableOpacity>
           </WrapView>
@@ -89,7 +90,7 @@ export default function Contact() {
         <View style={{flexDirection: 'row'}}>
           <Search style={{width: changeView === 'activeList' ? '93%' : '80%'}}>
             <IconSeach
-              source={require('../../../assets/icons/icon_search.png')}
+              source={IC_SEARCH}
             />
             <TextInput
               style={{width: '100%'}}
@@ -102,13 +103,13 @@ export default function Contact() {
             filterStatus === false ? (
               <Filter onPress={() => setFilterStatus(true)}>
                 <IconFilter
-                  source={require('../../../assets/icons/icon_filter1.png')}
+                  source={IC_FILTER1}
                 />
               </Filter>
             ) : (
               <Filter onPress={() => setFilterStatus(false)}>
                 <IconFilterActive
-                  source={require('../../../assets/icons/icon_filter1.png')}
+                  source={IC_FILTER1}
                 />
               </Filter>
             )

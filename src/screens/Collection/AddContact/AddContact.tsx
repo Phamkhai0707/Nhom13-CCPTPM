@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {inforListRemainingInAddContactSelector} from '../../../Redux/Selectors';
 import {contentCollectionSlide} from '../ChildCollection/ContentCollectionSlide';
 import {contactSlide} from '../../Home/Contact/ContactSlide';
+import { IC_ARROW, IC_CHECKBOXFALSE, IC_CHECKBOXTRUE, IC_SEARCH } from '../../../assets/type';
 
 export default function AddContact() {
   const inforListRemainingInAddContact = useSelector(
@@ -46,7 +47,7 @@ export default function AddContact() {
             navigation.navigate('ChildCollection');
             setCheckList([]);
           }}>
-          <Image source={require('../../../assets/icons/arrow.png')} />
+          <Image source={IC_ARROW} />
         </BackButton>
         <DoneButton
           onPress={() => {
@@ -60,7 +61,7 @@ export default function AddContact() {
       <WrapSearch>
         <Search>
           <IconsSearch
-            source={require('../../../assets/icons/icon_search.png')}
+            source={IC_SEARCH}
           />
           <TextInput
             style={{flex: 1}}
@@ -83,11 +84,11 @@ export default function AddContact() {
             <Person onPress={() => toggleStatus(item.id)}>
               {isChecked(item.id) ? (
                 <Image
-                  source={require('../../../assets/icons/checkBoxTrue.png')}
+                  source={IC_CHECKBOXTRUE}
                 />
               ) : (
                 <Image
-                  source={require('../../../assets/icons/checkBoxfalse.png')}
+                  source={IC_CHECKBOXFALSE}
                 />
               )}
               <Avata source={item.imageAvata} />
