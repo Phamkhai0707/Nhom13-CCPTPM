@@ -12,19 +12,17 @@ export default function Login() {
       <Logo2>
         <Image source={require('../../assets/images/logo2.png')} />
       </Logo2>
-      <Text1>Base Contact</Text1>
-      <Text2>
-        Giải pháp quản lý công việc & dự án toàn diện cho doanh nghiệp 4.0
-      </Text2>
+      <Text1>Group 13</Text1>
+      <Text2>Ứng dụng liên lạc & chats dành cho sinh viên</Text2>
       <IconLoading>
         <Image source={require('../../assets/icons/iconLoading.png')} />
       </IconLoading>
       <Text3>Bạn chưa đăng nhập</Text3>
       <Button1 onPress={() => navigation.navigate('MyDrawer')}>
-        <Text4>ĐĂNG NHẬP BẰNG BASE ACCOUNT</Text4>
+        <Text4>ĐĂNG NHẬP</Text4>
       </Button1>
       <Button2 onPress={() => navigation.navigate('MyDrawer')}>
-        <Text5>ĐĂNG NHẬP THỦ CÔNG</Text5>
+        <Text5>ĐĂNG KÍ</Text5>
       </Button2>
     </WrapScreen>
   );
