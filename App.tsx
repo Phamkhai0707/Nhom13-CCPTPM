@@ -15,7 +15,6 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import Login from './src/screens/Login/Login';
 import Contact from './src/screens/Home/Contact/Contact';
 import Recent from './src/screens/Home/Recent/Recent';
-import Scan from './src/screens/Home/Scan';
 import NewContact from './src/screens/Home/NewContact/NewContact';
 import Information from './src/screens/Information/Information/Information';
 import Collection from './src/screens/Collection/Collection/Collection';
@@ -25,6 +24,8 @@ import AddContact from './src/screens/Collection/AddContact/AddContact';
 import {useDispatch, useSelector} from 'react-redux';
 import {collectionListSelector} from './src/Redux/Selectors';
 import {collectionSlide} from './src/screens/Collection/Collection/CollectionSlide';
+import Messager from './src/screens/Home/Messager/Messager';
+import {Chats} from './src/screens/Home/Messager/Chats/Chats';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -66,7 +67,9 @@ function BottomTab({navigation}) {
         options={{
           headerLeft: () => {
             return (
-              <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+              <TouchableOpacity
+                style={{marginLeft: 12}}
+                onPress={() => navigation.toggleDrawer()}>
                 <Draw source={require('./src/assets/icons/iconMore.png')} />
               </TouchableOpacity>
             );
@@ -87,18 +90,31 @@ function BottomTab({navigation}) {
         }}
       />
       <Tab.Screen
-        name="Scan card"
-        component={Scan}
+        name="Message"
+        component={Messager}
         options={{
+          headerLeft: () => {
+            return (
+              <TouchableOpacity
+                style={{marginLeft: 12}}
+                onPress={() => navigation.toggleDrawer()}>
+                <Draw source={require('./src/assets/icons/iconMore.png')} />
+              </TouchableOpacity>
+            );
+          },
           tabBarIcon: ({focused}) => {
             return (
               <WrapFlex>
                 <Image
-                  style={{tintColor: focused ? 'white' : '#65A3F8'}}
-                  source={require('./src/assets/icons/iconTabBar1.png')}
+                  style={{
+                    tintColor: focused ? 'white' : '#65A3F8',
+                    height: 24,
+                    width: 24,
+                  }}
+                  source={require('./src/assets/icons/message.png')}
                 />
                 <TabBarLabel style={{color: focused ? 'white' : '#65A3F8'}}>
-                  Scan card
+                  Message
                 </TabBarLabel>
               </WrapFlex>
             );
@@ -184,6 +200,7 @@ function MyDrawer({navigation}) {
       <Drawer.Screen name="BottomTab" component={BottomTab} />
       <Drawer.Screen name="Information" component={Information} />
       <Drawer.Screen name="EditInformation" component={EditInformation} />
+      <Drawer.Screen name="Chats" component={Chats} />
       <Drawer.Screen
         options={{headerShown: false}}
         name="Collection"
