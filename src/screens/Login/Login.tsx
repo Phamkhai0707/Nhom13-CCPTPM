@@ -12,65 +12,54 @@ export default function Login() {
       <Logo2>
         <Image source={require('../../assets/images/logo2.png')} />
       </Logo2>
-      <Text1>Base Contact</Text1>
+      <Text1>Group 13</Text1>
       <Text2>
-        Giải pháp quản lý công việc & dự án toàn diện cho doanh nghiệp 4.0
+        Ứng dụng liên lạc dành cho sinh viên
       </Text2>
-      <IconLoading>
-        <Image source={require('../../assets/icons/iconLoading.png')} />
-      </IconLoading>
-      <Text3>Bạn chưa đăng nhập</Text3>
-      <Button1 onPress={() => navigation.navigate('MyDrawer')}>
-        <Text4>ĐĂNG NHẬP BẰNG BASE ACCOUNT</Text4>
-      </Button1>
-      <Button2 onPress={() => navigation.navigate('MyDrawer')}>
-        <Text5>ĐĂNG NHẬP THỦ CÔNG</Text5>
-      </Button2>
+      <ButtonWrapper>
+        <Button2 onPress={() => navigation.navigate('MyDrawer')}>
+          <Text5>ĐĂNG NHẬP</Text5>
+        </Button2>
+        <Button1 onPress={() => navigation.navigate('MyDrawer')}>
+          <Text4>ĐĂNG NHẬP</Text4>
+        </Button1>
+        <Text3>Bạn chưa đăng nhập</Text3>
+        <SImage source={require('../../assets/icons/iconLoading.png')} />
+      </ButtonWrapper>
     </WrapScreen>
   );
 }
 const WrapScreen = styled.View`
   align-items: center;
+  flex: 1;
 `;
 const Logo1 = styled.View`
-  top: 50px;
+  margin-top: 50px;
 `;
 const Logo2 = styled.View`
-  top: -95px;
+  position: absolute;
+  margin-top: 100px;
 `;
 const Text1 = styled.Text`
-  position: absolute;
   text-align: center;
-  height: 35px;
-  top: 356px;
+  margin-top: 60px;
   color: rgba(30, 98, 190, 1);
   font-family: roboto;
   font-style: normal;
   font-size: 30px;
   font-weight: 700;
-  letter-spacing: 0.12px;
 `;
 const Text2 = styled.Text`
-  position: absolute;
-  width: 268px;
-  height: 36px;
-  top: 398px;
   font-family: roboto;
+  margin-top: 15px;
   font-style: normal;
   font-size: 15px;
   font-weight: 400;
   text-align: center;
-  letter-spacing: 0.12px;
   color: #333333;
 `;
-const IconLoading = styled.View`
-  top: 90px;
-`;
 const Text3 = styled.Text`
-  position: absolute;
-  width: 140px;
-  height: 20px;
-  top: 560px;
+  margin-bottom: 15px;
   font-family: roboto;
   font-style: italic;
   font-size: 15px;
@@ -79,19 +68,28 @@ const Text3 = styled.Text`
   letter-spacing: -0.24px;
   color: #828282;
 `;
-const Button1 = styled.TouchableOpacity`
-  position: absolute;
-  width: 300px;
-  height: 48px;
-  top: 605px;
+
+const SImage = styled(Image)`
+  margin-bottom: 15px;
+`
+
+const ButtonWrapper = styled(View)`
+  flex: 1;
+  flex-direction: column-reverse;
   align-items: center;
-  padding: 10px;
+  width: 100%;
+`
+
+const Button1 = styled.TouchableOpacity`
+  margin-bottom: 6px;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 50px;
   background-color: #1e62be;
   border-radius: 4px;
 `;
 const Text4 = styled.Text`
-  position: absolute;
-  top: 14px;
   font-family: roboto;
   font-style: normal;
   font-size: 15px;
@@ -101,25 +99,21 @@ const Text4 = styled.Text`
   color: #ffffff;
 `;
 const Button2 = styled.TouchableOpacity`
-  position: absolute;
-  width: 300px;
-  height: 48px;
-  top: 668px;
+  margin-bottom: 30px;
   align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 50px;
   background-color: white;
   border-color: #1e62be;
   border-width: 2px;
   border-radius: 4px;
 `;
 const Text5 = styled.Text`
-  position: absolute;
-  top: 12px;
   font-family: roboto;
   font-style: normal;
   font-size: 15px;
   font-weight: 500;
   text-align: center;
-  letter-spacing: -0.24px;
-  text-transform: uppercase;
   color: #1e62be;
 `;
