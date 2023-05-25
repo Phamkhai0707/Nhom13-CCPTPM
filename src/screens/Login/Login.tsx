@@ -2,6 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import {View, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {
+  auth,
+  firebaseDatabase,
+  createUserWithEmailAndPassword,
+} from '../../Firebase/firebase';
+
 export default function Login() {
   const navigation = useNavigation();
   return (
@@ -13,12 +19,10 @@ export default function Login() {
         <Image source={require('../../assets/images/logo2.png')} />
       </Logo2>
       <Text1>Group 13</Text1>
-      <Text2>
-        Ứng dụng liên lạc dành cho sinh viên
-      </Text2>
+      <Text2>Ứng dụng liên lạc dành cho sinh viên</Text2>
       <ButtonWrapper>
-        <Button2 onPress={() => navigation.navigate('MyDrawer')}>
-          <Text5>ĐĂNG NHẬP</Text5>
+        <Button2 onPress={() => navigation.navigate('Register')}>
+          <Text5>ĐĂNG KÝ</Text5>
         </Button2>
         <Button1 onPress={() => navigation.navigate('MyDrawer')}>
           <Text4>ĐĂNG NHẬP</Text4>
@@ -71,14 +75,14 @@ const Text3 = styled.Text`
 
 const SImage = styled(Image)`
   margin-bottom: 15px;
-`
+`;
 
 const ButtonWrapper = styled(View)`
   flex: 1;
   flex-direction: column-reverse;
   align-items: center;
   width: 100%;
-`
+`;
 
 const Button1 = styled.TouchableOpacity`
   margin-bottom: 6px;

@@ -26,6 +26,7 @@ import {collectionListSelector} from './src/Redux/Selectors';
 import {collectionSlide} from './src/screens/Collection/Collection/CollectionSlide';
 import Messager from './src/screens/Home/Messager/Messager';
 import {Chats} from './src/screens/Home/Messager/Chats/Chats';
+import {Register} from './src/screens/Login/Register';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -216,6 +217,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="MyDrawer" component={MyDrawer} />
       </Stack.Navigator>
     </NavigationContainer>
