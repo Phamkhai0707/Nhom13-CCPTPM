@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, Text, View, TextInput} from 'react-native';
+import {Image, Text, View, TextInput, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 import {AlphabetList} from 'react-native-section-alphabet-list';
@@ -24,7 +24,7 @@ export default function AddContact() {
       ? setCheckList(checkList.filter(item => item !== id))
       : setCheckList([...checkList, id]);
   };
-  const handleSearchContactChange = value => {
+  const handleSearchContactChange = (value: any) => {
     setSearchContact(value);
     dispatch(contactSlide.actions.searchInAddContact(value));
   };
@@ -111,16 +111,16 @@ export default function AddContact() {
 const SectionList = styled(AlphabetList)`
   margin-top: 10px;
 `;
-const Header = styled.View`
+const Header = styled(View)`
   height: 50px;
   flex-direction: row;
   align-items: center;
 `;
-const BackButton = styled.TouchableOpacity`
+const BackButton = styled(TouchableOpacity)`
   position: absolute;
   margin-left: 12px;
 `;
-const TextHeader = styled.Text`
+const TextHeader = styled(Text)`
   flex: 1;
   text-align: center;
   margin-left: 15px;
@@ -130,40 +130,40 @@ const TextHeader = styled.Text`
   font-weight: 600;
   font-size: 22px;
 `;
-const DoneButton = styled.TouchableOpacity`
+const DoneButton = styled(TouchableOpacity)`
   position: absolute;
   margin-left: 310px;
 `;
-const Done = styled.Text`
+const Done = styled(Text)`
   color: #1e62be;
   font-family: Roboto;
   font-style: normal;
   font-weight: 600px;
   font-size: 18px;
 `;
-const IconsSearch = styled.Image`
+const IconsSearch = styled(Image)`
   margin-top: 14px;
   margin-left: 10px;
 `;
-const WrapSearch = styled.View`
+const WrapSearch = styled(View)`
   align-items: center;
 `;
-const Search = styled.View`
+const Search = styled(View)`
   flex-direction: row;
   background-color: #f2f2f2;
   border-radius: 4px;
   width: 93%;
   height: 45px;
 `;
-const Avata = styled.Image`
+const Avata = styled(Image)`
   margin-left: 12px;
 `;
-const HeaderTitle = styled.View`
+const HeaderTitle = styled(View)`
   justify-content: center;
   height: 40px;
   background-color: #e0e0e0;
 `;
-const Title = styled.Text`
+const Title = styled(Text)`
   margin-left: 15px;
   font-family: Roboto;
   font-style: normal;
@@ -171,7 +171,7 @@ const Title = styled.Text`
   font-weight: 500;
   color: #000;
 `;
-const Person = styled.TouchableOpacity`
+const Person = styled(TouchableOpacity)`
   margin-left: 15px;
   align-items: center;
   height: 90px;
@@ -179,7 +179,7 @@ const Person = styled.TouchableOpacity`
   flex: 1;
   background-color: white;
 `;
-const InforPerson = styled.View`
+const InforPerson = styled(View)`
   height: 90px;
   justify-content: center;
   border-bottom-color: #e6e6e6;
@@ -187,7 +187,7 @@ const InforPerson = styled.View`
   margin-left: 15px;
   margin-right: 20px;
 `;
-const Name = styled.Text`
+const Name = styled(Text)`
   font-family: Roboto;
   font-style: normal;
   font-size: 17px;

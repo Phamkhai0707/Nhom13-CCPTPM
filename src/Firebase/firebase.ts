@@ -7,17 +7,16 @@ import {
 import {getDatabase} from 'firebase/database';
 
 const firebaseConfig = {
-  apikey: 'AIzaSyBCnR40bCjoLpnvWXBcvy-XgW2eBuSZ_O8',
-  authDomain: 'nhom13-ccptpm.firebaseapp.com',
+  apikey: 'AIzaSyBA-p_h4k19qNHyHFeCTZPv-ZaQLs3_zCo',
+  authDomain: 'group-13-9a8ff.firebaseapp.com',
   databaseURL:
-    'https://nhom13-ccptpm-default-rtdb.asia-southeast1.firebasedatabase.app/',
-  projectId: 'nhom13-ccptpm',
-  appId: '1:946660470548:android:7c17c74b967a9fb6091c01',
-  storageBucket: 'nhom13-ccptpm.appspot.com',
-  messagingSenderId: '946660470548',
+    'https://group-13-9a8ff-default-rtdb.asia-southeast1.firebasedatabase.app',
+  projectId: 'group-13-9a8ff',
+  appId: '1:30209707286:android:623462a2c902e86a549437',
+  storageBucket: 'group-13-9a8ff.appspot.com',
+  messagingSenderId: '30209707286',
 };
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const firebaseDatabase = getDatabase();
-export {auth, firebaseDatabase, createUserWithEmailAndPassword};
+export {app, auth, firebaseDatabase, createUserWithEmailAndPassword};

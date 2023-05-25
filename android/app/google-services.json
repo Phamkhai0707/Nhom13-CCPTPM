@@ -1,65 +1,27 @@
 {
   "project_info": {
-    "project_number": "946660470548",
-    "project_id": "nhom13-ccptpm",
-    "storage_bucket": "nhom13-ccptpm.appspot.com"
+    "project_number": "30209707286",
+    "firebase_url": "https://group-13-9a8ff-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "group-13-9a8ff",
+    "storage_bucket": "group-13-9a8ff.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:946660470548:android:7c17c74b967a9fb6091c01",
-        "android_client_info": {
-          "package_name": "com.nhom13"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "946660470548-l3n77v1rdkllsakdjqbo64uq9cs7l4n4.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBCnR40bCjoLpnvWXBcvy-XgW2eBuSZ_O8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "946660470548-l3n77v1rdkllsakdjqbo64uq9cs7l4n4.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:946660470548:android:518449d40def04c3091c01",
+        "mobilesdk_app_id": "1:30209707286:android:623462a2c902e86a549437",
         "android_client_info": {
           "package_name": "com.sampleapp"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "946660470548-l3n77v1rdkllsakdjqbo64uq9cs7l4n4.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBCnR40bCjoLpnvWXBcvy-XgW2eBuSZ_O8"
+          "current_key": "AIzaSyBA-p_h4k19qNHyHFeCTZPv-ZaQLs3_zCo"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "946660470548-l3n77v1rdkllsakdjqbo64uq9cs7l4n4.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

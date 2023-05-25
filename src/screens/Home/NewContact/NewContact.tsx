@@ -1,5 +1,13 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {Image, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import styled from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
@@ -63,22 +71,22 @@ export default function NewContact() {
       .filter(value => value !== null);
     setAddAddress([...newList]);
   };
-  const handleAdd4 = add => {
+  const handleAdd4 = (add: any) => {
     setAdd4(add);
   };
-  const handlerName = name => {
+  const handlerName = (name: any) => {
     setName(name);
   };
-  const handlerBatch = batch => {
+  const handlerBatch = (batch: any) => {
     setBatch(batch);
   };
-  const handlerCompany = company => {
+  const handlerCompany = (company: any) => {
     setCompany(company);
   };
-  const handlerDoB = DoB => {
+  const handlerDoB = (DoB: any) => {
     setDoB(DoB);
   };
-  const renderItemPhone = ({item, index}) => {
+  const renderItemPhone = ({item, index}: {item: any; index: any}) => {
     setIndexPhone(index);
     return (
       <WrapInfor3>
@@ -98,7 +106,7 @@ export default function NewContact() {
       </WrapInfor3>
     );
   };
-  const renderItemEmail = ({item, index}) => {
+  const renderItemEmail = ({item, index}: {item: any; index: any}) => {
     return (
       <WrapInfor3>
         <TouchableOpacity
@@ -116,7 +124,7 @@ export default function NewContact() {
       </WrapInfor3>
     );
   };
-  const renderItemAddress = ({item, index}) => {
+  const renderItemAddress = ({item, index}: {item: any; index: any}) => {
     return (
       <WrapInfor3>
         <TouchableOpacity
@@ -274,64 +282,61 @@ export default function NewContact() {
     </Background>
   );
 }
-const Background = styled.View`
+const Background = styled(View)`
   flex: 1;
   background-color: white;
 `;
-const Header = styled.View`
+const Header = styled(View)`
   flex-direction: row;
   height: 55px;
 `;
-const CancelButton = styled.TouchableOpacity`
+const CancelButton = styled(TouchableOpacity)`
   justify-content: center;
   margin-left: 12px;
 `;
-const Cancel = styled.Text`
+const Cancel = styled(Text)`
   color: #1e62be;
-  font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
 `;
-const SaveButton = styled.TouchableOpacity`
+const SaveButton = styled(TouchableOpacity)`
   justify-content: center;
   margin-left: auto;
   margin-right: 12px;
 `;
-const Save = styled.Text`
-  font-family: Roboto;
+const Save = styled(Text)`
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
 `;
-const Avata = styled.View`
+const Avata = styled(View)`
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 130px;
 `;
-const ChangeAvata = styled.TouchableOpacity`
+const ChangeAvata = styled(TouchableOpacity)`
   margin-top: -30px;
-  margin-left: 65;
+  margin-left: 65px;
 `;
-const WrapInfor1 = styled.View`
+const WrapInfor1 = styled(View)`
   align-items: center;
 `;
-const Infor1 = styled.TextInput`
+const Infor1 = styled(TextInput)`
   width: 90%;
   height: 40px;
-  font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  border-bottom-width: 1;
+  border-bottom-width: 1px;
   border-bottom-color: #f2f2f2;
 `;
-const WrapInfor2 = styled.View`
+const WrapInfor2 = styled(View)`
   margin-top: 15px;
   align-items: center;
 `;
-const WrapInfor3 = styled.View`
+const WrapInfor3 = styled(View)`
   width: 90%;
   height: 45px;
   align-items: center;
@@ -339,18 +344,17 @@ const WrapInfor3 = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #f2f2f2;
 `;
-const Infor2 = styled.Text`
+const Infor2 = styled(Text)`
   margin-left: 12px;
-  font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   color: #000;
 `;
-const ListPhoneNumber = styled.FlatList`
+const ListPhoneNumber = styled(FlatList)`
   width: 90%;
 `;
-const Textinput = styled.TextInput`
+const Textinput = styled(TextInput)`
   flex: 1;
   margin-left: 12px;
 `;

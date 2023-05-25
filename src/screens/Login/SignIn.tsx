@@ -1,29 +1,17 @@
 import {memo, useState} from 'react';
-import {
-  Alert,
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import styled from 'styled-components';
-import {
-  auth,
-  firebaseDatabase,
-  createUserWithEmailAndPassword,
-} from '../../Firebase/firebase';
-export const Register = memo(function () {
-  const [email, onChangeEmail] = useState<string>('');
-  const [pass, onChangePass] = useState<string>('');
-  const [rePass, onChangeRePass] = useState<string>('');
-  const isValidationOK = () =>
-    email.length > 0 && pass.length > 0 && pass === rePass;
+import {useNavigation} from '@react-navigation/native';
+
+export const Signin = memo(function () {
+  const navigation = useNavigation();
+  const [email, onChangeEmail] = useState<string>('khai123@gmail.com');
+  const [pass, onChangePass] = useState<string>('12345678');
   return (
     <ScreenWrapper>
       <HeaderWrapper>
-        <HeaderText>Already have an Account?</HeaderText>
-        <SImage source={require('../../assets/icons/Register.png')} />
+        <HeaderText>WellCome back!</HeaderText>
+        <SImage source={require('../../assets/icons/contactApp.png')} />
       </HeaderWrapper>
       <InputWrapper>
         <SView>
@@ -40,30 +28,9 @@ export const Register = memo(function () {
             secureTextEntry={true}
             placeholder="Enter your password"
           />
-          <SText>Retype password:</SText>
-          <STextInput
-            onChangeText={onChangeRePass}
-            value={rePass}
-            secureTextEntry={true}
-            placeholder="Re-enter your password"
-          />
         </SView>
-        <RegisterTouch
-          disabled={isValidationOK === false}
-          onPress={() => {
-            createUserWithEmailAndPassword(auth, email, pass)
-              .then(userCredential => {
-                // Signed in
-                const user = userCredential.user;
-                // ...
-              })
-              .catch(error => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-              });
-          }}>
-          <Ssubmit>Register</Ssubmit>
+        <RegisterTouch onPress={() => navigation.navigate('MyDrawer')}>
+          <Ssubmit>Login</Ssubmit>
         </RegisterTouch>
       </InputWrapper>
       <View style={{alignItems: 'center', width: '100%'}}>

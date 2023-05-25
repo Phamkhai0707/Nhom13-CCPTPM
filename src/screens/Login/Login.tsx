@@ -2,11 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import {View, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {
-  auth,
-  firebaseDatabase,
-  createUserWithEmailAndPassword,
-} from '../../Firebase/firebase';
 
 export default function Login() {
   const navigation = useNavigation();
@@ -24,7 +19,7 @@ export default function Login() {
         <Button2 onPress={() => navigation.navigate('Register')}>
           <Text5>ĐĂNG KÝ</Text5>
         </Button2>
-        <Button1 onPress={() => navigation.navigate('MyDrawer')}>
+        <Button1 onPress={() => navigation.navigate('Signin')}>
           <Text4>ĐĂNG NHẬP</Text4>
         </Button1>
         <Text3>Bạn chưa đăng nhập</Text3>

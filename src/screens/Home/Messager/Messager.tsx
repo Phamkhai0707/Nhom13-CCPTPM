@@ -11,8 +11,8 @@ export default function Messager() {
       <Personal onPress={() => navigation.navigate('Chats', {param: item})}>
         <Image source={item.avatar} />
         <InfoWrapper>
-          <Text>{item.name}</Text>
-          <Text>{item.message}</Text>
+          <SText>{item.name}</SText>
+          <LText>{item.message}</LText>
         </InfoWrapper>
       </Personal>
     );
@@ -27,6 +27,19 @@ export default function Messager() {
     </ScreenWrapper>
   );
 }
+
+const SText = styled(Text)`
+  font-weight: 500;
+  font-size: 16px;
+  color: black;
+`;
+
+const LText = styled(Text)`
+  font-weight: 400;
+  font-size: 14px;
+  color: black;
+`;
+
 const ScreenWrapper = styled(View)`
   flex: 1;
 `;

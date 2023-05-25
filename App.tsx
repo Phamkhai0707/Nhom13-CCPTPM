@@ -27,6 +27,7 @@ import {collectionSlide} from './src/screens/Collection/Collection/CollectionSli
 import Messager from './src/screens/Home/Messager/Messager';
 import {Chats} from './src/screens/Home/Messager/Chats/Chats';
 import {Register} from './src/screens/Login/Register';
+import {Signin} from './src/screens/Login/SignIn';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -217,6 +218,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="MyDrawer" component={MyDrawer} />
       </Stack.Navigator>
