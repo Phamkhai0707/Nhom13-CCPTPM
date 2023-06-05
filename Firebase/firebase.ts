@@ -1,9 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import {
-  getAuth,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-} from 'firebase/auth';
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {getDatabase} from 'firebase/database';
 
 const firebaseConfig = {
@@ -16,7 +12,4 @@ const firebaseConfig = {
   storageBucket: 'group-13-9a8ff.appspot.com',
   messagingSenderId: '30209707286',
 };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth();
-const firebaseDatabase = getDatabase();
-export {app, auth, firebaseDatabase, createUserWithEmailAndPassword};
+export const app = initializeApp(firebaseConfig);
